@@ -195,3 +195,30 @@ function getUserNotifications($user_id){
 
 //test getUserNotifications function
 echo getUserNotifications("1")."\n";
+
+
+//returns a boolean value whether a given user has a valid subscription or not
+//to be used in permission givings
+function getUserSubscription($user_id){
+    global $pdo;
+
+    $sql = "SELECT subs_status FROM Subscriptions
+    WHERE user_id = :u_id AND subs_status = :stt";
+
+    $statement = $pdo->prepare($sql);
+    $statement->execute(array(
+        ':u_id' => $user_id,
+        ':stt' => "Active"
+    ));
+    $db_subs = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if($db_subs === false){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+//test getUserSubscription function
+echo getUserSubscription("1")."\n";

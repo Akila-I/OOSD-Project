@@ -44,3 +44,8 @@ function getUserCardDetails($user_id)
 //returns the array of notifications of a given username, false if a card not found
 //to be used in getting a saved card 
 function getUserNotifications($user_id)
+
+10.
+//returns a boolean value whether a given user has a valid subscription or not
+//to be used in permission givings
+function getUserSubscription($user_id)
