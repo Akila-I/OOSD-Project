@@ -2,8 +2,8 @@
 
 require_once __DIR__ . "/pdo.php";
 
-function login($username, $password){
-
+//returns the password of a given username, false if user not found
+function getUserPW($username){
     global $pdo;
 
     $sql = "SELECT password FROM Users
@@ -15,13 +15,6 @@ function login($username, $password){
     ));
     $db_password = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if ($db_password === false){
-        $result = false;
-    }else{
-        $result = $db_password['password'] === $password; // hash salt whatever
-    }
-
-    return $result;
+    return $db_password;
 }
 
-echo login("akilag","123")."\n";
