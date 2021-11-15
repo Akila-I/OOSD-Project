@@ -46,7 +46,7 @@ function getUserRole($user_id){
 }
 
 //test getUserRole function
-echo getUserRole("1")."\n";
+//echo getUserRole("1")."\n";
 
 
 //returns an array of details of a given user
@@ -67,7 +67,7 @@ function getUserDetails($user_id){
 }
 
 //test getUserDetails function
-echo getUserDetails("1")."\n";
+//echo getUserDetails("1")."\n";
 
 
 //returns an array of book ids for favourite books of a given user
@@ -82,13 +82,17 @@ function getUserFavBooks($user_id){
     $statement->execute(array(
         ':u_id' => $user_id
     ));
-    $db_favs = $statement->fetch(PDO::FETCH_ASSOC);
+    $arr = array();
 
-    return $db_favs;     //formatting to JSONs?
+    while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+        array_push($arr,$db_readings['book_id']);
+    }
+
+    return $arr;
 }
 
 //test getUserFavBooks function
-echo getUserFavBooks("1")."\n";
+//print_r( getUserFavBooks("1");
 
 //returns an array of book ids for 'Reading' state books of a given user
 //to be used to view reading list
@@ -103,13 +107,19 @@ function getUserReadingBooks($user_id){
         ':u_id' => $user_id,
         ':stt' => "Reading"
     ));
-    $db_readings = $statement->fetch(PDO::FETCH_ASSOC);
 
-    return $db_readings;     //formatting to JSONs?
+    $arr = array();
+
+    while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+        array_push($arr,$db_readings['book_id']);
+    }
+   // $db_readings = $statement->fetch(PDO::FETCH_ASSOC);
+    return $arr;
+   // return $db_readings;     //formatting to JSONs?
 }
 
 //test getUserReadingBooks function
-echo getUserReadingBooks("1")."\n";
+//echo getUserReadingBooks("1")."\n";
 
 
 //returns an array of book ids for 'Finished' state books of a given user
@@ -125,13 +135,17 @@ function getUserFinishedBooks($user_id){
         ':u_id' => $user_id,
         ':stt' => "Finished"
     ));
-    $db_finished = $statement->fetch(PDO::FETCH_ASSOC);
+    $arr = array();
 
-    return $db_finished;     //formatting to JSONs?
+    while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+        array_push($arr,$db_readings['book_id']);
+    }
+   // $db_readings = $statement->fetch(PDO::FETCH_ASSOC);
+    return $arr;
 }
 
 //test getUserFinishedBooks function
-echo getUserFinishedBooks("1")."\n";
+//echo getUserFinishedBooks("1")."\n";
 
 
 //returns an array of details of a given book
@@ -152,7 +166,7 @@ function getBookDetails($book_id){
 }
 
 //test getBookDetails function
-echo getBookDetails("1")."\n";
+//echo getBookDetails("1")."\n";
 
 
 //returns the array of details of card data of a given username, false if a card not found
