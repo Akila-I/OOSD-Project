@@ -1,7 +1,7 @@
 <style>
     /* Add a black background color to the top navigation */
     .topnav {
-    background-color: #000;
+    background-color: black;
     overflow: hidden;
     
     }
@@ -18,7 +18,7 @@
 
 <div class="topnav">
     <a href="servers/logout_server.php">Logout</a>
-    <a href="#about">My Profile</a>
+    <a href="acc_view.php">My Profile</a>
     <a href="#contact">Notifications</a>
     <a href="homepage.php">Home</a>
 

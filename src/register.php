@@ -62,6 +62,7 @@ if(!empty($_REQUEST['msg'])){
 
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Register" />
+                            <a href="index.php"><input type="button"value="Back" /></a>
                         </div>
                     </form>
                 </div>

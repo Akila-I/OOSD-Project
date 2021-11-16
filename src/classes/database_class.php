@@ -83,4 +83,22 @@ class database{
             ':r' => $role
         ));
     }
+
+    function getUserID($username){
+        $sql = "SELECT * FROM Users
+        WHERE username = :un";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':un' => $username
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['user_id'];
+    }
+
+    function getSubsDetails($user_id){
+
+    }
 }

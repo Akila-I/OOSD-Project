@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use function PHPSTORM_META\type;
 
 require_once "db_funcs_getters.php";
@@ -8,10 +8,8 @@ require_once "db_funcs_getters.php";
          2 -> reading list
          3 -> favourites */
          
-      $user = '1'; //user id-----------------
-
       function get_list($list_type){
-        global $user;
+        $user = $_SESSION['userID']; //user id-----------------
         $book_list = null;
 
         //finished list
@@ -48,8 +46,11 @@ require_once "db_funcs_getters.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title>Document</title>  <!--button value -->
+    <title>Virtual Library - Books</title>  <!--button value -->
 </head>
 <body>
 <?php require "top_menu_bar.php"; ?>
@@ -84,7 +85,6 @@ require_once "db_funcs_getters.php";
       
       </ul>
     </div>
-    <a href="homepage.php"> <input type="button" value="Home"></a>
  </div>
 
 
