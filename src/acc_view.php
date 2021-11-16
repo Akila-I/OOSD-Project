@@ -68,12 +68,6 @@ $user_data = $database_connection->getUserDetails($_SESSION['username']);
             </div>
         </div>
 
-
-
-        
-
-
-
         <script src="" async defer></script>
     </body>
 </html>

@@ -12,6 +12,13 @@ require_once "db_funcs_getters.php";
         $user = $_SESSION['userID']; //user id-----------------
         $book_list = null;
 
+        //all list
+        if($list_type === 0)
+        {
+          $book_list = getAllBooks();
+            
+        }
+
         //finished list
         if($list_type === 1)
         {
@@ -35,7 +42,7 @@ require_once "db_funcs_getters.php";
       }
       $type = $_GET['type'];
       $x = get_list((int)$type);  //submit button value---------------------
-      //print_r($x);
+      // print_r($x);
 
     ?>
 
