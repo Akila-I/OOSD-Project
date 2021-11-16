@@ -50,4 +50,37 @@ class database{
         return $db_details;
     }
 
+    function usernameAvailability($username){
+        $sql = "SELECT password FROM Users WHERE username = :un";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':un' => $username
+        ));
+
+        $db_password = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($db_password === false){
+            $msg = true;
+        }
+        else{
+            $msg = "This Username is already taken.";
+        }
+        return $msg;
+    }
+
+    function addUser($fname,$lname,$username,$email,$password,$role){
+        $sql = "INSERT INTO Users(f_name,l_name,username,email,password,role) 
+        VALUES (:fn, :ln, :un, :em, :pw, :r)";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':fn' => $fname,
+            ':ln' => $lname,
+            ':un' => $username,
+            ':em' => $email,
+            ':pw' => $password,
+            ':r' => $role
+        ));
+    }
 }

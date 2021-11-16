@@ -16,37 +16,15 @@
 <?php
 require_once "classes/user_class.php";
 session_start();
- $unamemsg="";
- $pwmsg="";
- $msg="";
-
- $adunamemsg="";
- $adpwmsg="";
 
  $session_var = "no session";
 
- if(!empty($_SESSION['userID'])){
-     $session_var = $_SESSION['userID'];
+ if(!empty($_SESSION['username'])){
+     $session_var = $_SESSION['username'];
  }
-
- if(!empty($_REQUEST['adunamemsg'])){
-    $adunamemsg=$_REQUEST['adunamemsg'];
- }
-
- if(!empty($_REQUEST['adpwmsg'])){
-    $adpwmsg=$_REQUEST['adpwmsg'];
- }
-
- if(!empty($_REQUEST['unamemsg'])){
-    $unamemsg=$_REQUEST['unamemsg'];
- }
-
- if(!empty($_REQUEST['pwmsg'])){
-  $pwmsg=$_REQUEST['pwmsg'];
-}
 
 if(!empty($_REQUEST['msg'])){
-    $msg=$_REQUEST['msg'];
+    $msg='*'.$_REQUEST['msg'];
  }
 
  ?>
@@ -54,27 +32,26 @@ if(!empty($_REQUEST['msg'])){
 
 
 <div class="container login-container">
-<div class="row"><h4><?php echo $msg?></h4></div>
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Login</h3>
                     <form action="servers/login_server.php" method="get">
+                    <Label style="color:red"><?php echo $msg?></label><br>
                     <Label style="color:red">*<?php echo "session". $session_var?></label>
                         
                         <div class="form-group">
-                            <input type="text" class="form-control" name="login_username" placeholder="Your Email *" value="" />
+                            <input type="text" class="form-control" name="login_username" placeholder="Your Username *" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
+                        
                         <div class="form-group">
-                            <input type="password" class="form-control" name="login_pasword"  placeholder="Your Password *" value="" />
+                            <input type="password" class="form-control" name="login_pasword"  placeholder="Your Password *" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $pwmsg?></label>
+
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Login" />
                         </div>
-                        <div class="form-group">
 
-                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a><br>
+                        <div class="form-group">
                             <a href="register.php" class="Register" value="Login">Register New User</a>
                         </div>
                     </form>

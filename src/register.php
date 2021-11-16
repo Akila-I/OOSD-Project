@@ -15,44 +15,49 @@
 
 
 <?php
-
+if(!empty($_REQUEST['msg'])){
+    $msg='*'.$_REQUEST['msg'];
+ }
 ?>
 
 <div class="container login-container">
-<div class="row"><h4><?php echo $msg?></h4></div>
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Register</h3>
-                    <form action="servers/register_server.php" method="get">                        
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="register_fname" placeholder="First Name" value="" />
-                        </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
+                    <form action="servers/register_server.php" method="get">
+                    <Label style="color:red"><?php echo $msg?></label>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="register_lname" placeholder="Last Name" value="" />
+                            <input type="text" class="form-control" name="register_fname" placeholder="First Name" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="register_username" placeholder="Userame" value="" />
+                            <input type="text" class="form-control" name="register_lname" placeholder="Last Name" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="register_email" placeholder="Email" value="" />
+                            <input type="text" class="form-control" name="register_username" placeholder="Userame" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
 
                         <div class="form-group">
-                            <input type="password" class="form-control" name="login_pasword"  placeholder="Your Password *" value="" />
+                            <input type="text" class="form-control" name="register_email" placeholder="Email" value="" required/>
                         </div>
-                        <Label style="color:red">*<?php echo $pwmsg?></label>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="register_role" placeholder="Role" value="" />
+                            <input type="password" class="form-control" name="register_pasword"  placeholder="Your Password *" value="" required />
                         </div>
-                        <Label style="color:red">*<?php echo $unamemsg?></label>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="register_pasword_confirm"  placeholder="Confirm Your Password *" value="" required />
+                        </div>
+
+                        <div class="form-group">
+                            <select name="register_role" class="form-control" required>
+                                <option value="Default" disabled selected hidden>Select Your Role</option>
+                                <option value="Reader">Reader</option>
+                                <option value="Librarian">Librarian</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Register" />
