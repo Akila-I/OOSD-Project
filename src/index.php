@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 
 <html>
     <head>
@@ -15,8 +14,8 @@
     <body>
 
 <?php
+require_once "classes/user_class.php";
 session_start();
-include('user_class.php');
  $unamemsg="";
  $pwmsg="";
  $msg="";
@@ -26,8 +25,8 @@ include('user_class.php');
 
  $session_var = "no session";
 
- if(!empty($_SESSION['reader'])){
-     $session_var = $_SESSION['reader'];
+ if(!empty($_SESSION['userID'])){
+     $session_var = $_SESSION['userID'];
  }
 
  if(!empty($_REQUEST['adunamemsg'])){
@@ -58,8 +57,8 @@ if(!empty($_REQUEST['msg'])){
 <div class="row"><h4><?php echo $msg?></h4></div>
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Student Login</h3>
-                    <form action="login_reader_server.php" method="get">
+                    <h3>Login</h3>
+                    <form action="servers/login_server.php" method="get">
                     <Label style="color:red">*<?php echo "session". $session_var?></label>
                         
                         <div class="form-group">
@@ -73,25 +72,10 @@ if(!empty($_REQUEST['msg'])){
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Login" />
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-6 login-form-2">
-                    <h3>Admin Login</h3>
-                    <form action="loginadmin_server.php" method="get">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="login_username" placeholder="Your Email *" value="" />
-                        </div>
-                        <Label style="color:red">*<?php echo $adunamemsg?></label>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="login_pasword"  placeholder="Your Password *" value="" />
-                        </div>
-                        <Label style="color:red">*<?php echo $adpwmsg?></label>
-                        <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
-                        </div>
                         <div class="form-group">
 
-                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a><br>
+                            <a href="register.php" class="Register" value="Login">Register New User</a>
                         </div>
                     </form>
                 </div>

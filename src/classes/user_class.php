@@ -1,5 +1,5 @@
 <?php
-require_once "database_class.php";
+require "database_class.php";
 
 class user{
     private $user_id;
@@ -8,6 +8,7 @@ class user{
     private $username;
     private $email;
     private $password;
+    private $role;
 
     private $database_connection;
 
@@ -27,6 +28,7 @@ class user{
             $this->first_name = $userdetails["f_name"];
             $this->last_name =  $userdetails["l_name"];
             $this->email= $userdetails["email"];
+            $this->role= $userdetails["role"];
         }
         return $result;
     }
