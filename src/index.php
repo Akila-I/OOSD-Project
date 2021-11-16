@@ -16,7 +16,7 @@
 <?php
 require_once "classes/user_class.php";
 session_start();
-
+$msg="";
 if(!empty($_REQUEST['msg'])){
     $msg='*'.$_REQUEST['msg'];
  }
