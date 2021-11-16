@@ -11,7 +11,7 @@ $validation_msg = $database_connection->validateUser($login_username,$login_pasw
 if($validation_msg === true){
     //go to dashboard
     $_SESSION['username'] = $login_username;
-    header("Location: ../index.php?msg='login success'");
+    header("Location: ../homepage.php");
 }
 else{
     header("Location: ../index.php?msg=$validation_msg");

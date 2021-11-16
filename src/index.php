@@ -17,12 +17,6 @@
 require_once "classes/user_class.php";
 session_start();
 
- $session_var = "no session";
-
- if(!empty($_SESSION['username'])){
-     $session_var = $_SESSION['username'];
- }
-
 if(!empty($_REQUEST['msg'])){
     $msg='*'.$_REQUEST['msg'];
  }
@@ -37,7 +31,6 @@ if(!empty($_REQUEST['msg'])){
                     <h3>Login</h3>
                     <form action="servers/login_server.php" method="get">
                     <Label style="color:red"><?php echo $msg?></label><br>
-                    <Label style="color:red">*<?php echo "session". $session_var?></label>
                         
                         <div class="form-group">
                             <input type="text" class="form-control" name="login_username" placeholder="Your Username *" value="" required/>
