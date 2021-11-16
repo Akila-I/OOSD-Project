@@ -46,7 +46,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title>Document</title>
+    <title>Document</title>  <!--button value -->
 </head>
 <body>
 <header>
@@ -58,21 +58,29 @@
       <ul>
       <?php
         foreach ($x as $key => $value) {
+
           $book_details = getBookDetails($value);
          
           $book_title = $book_details['title'];
           $book_author = $book_details['author'];
           $book_year = $book_details['year'];
           $book_catagory = $book_details['category'];
+          $book_id = $book_details['book_id'];
 
-          echo ("<li><p>$book_title</p>");
-          echo ("<p>$book_author\t");
-          echo ("$book_year\t");
-          echo ("$book_catagory</p></li>");
-         
+          echo ('<li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/>');
+          echo ("<div class='title'>$book_title</div>");
+          echo ("<div class='author'>$book_author</div>");
+          echo ("<div class='year'>$book_year</div>");
+          echo ("<div class='category'>$book_catagory</div>");
+          echo ('<input type="submit" value="open"></li>');
+          
+
         }
-
+        
       ?>
+      
+        
+      
       </ul>
     </div>
 
