@@ -2,9 +2,12 @@
 <html>
     <head>
         <title>Homepage</title>
+        
     </head>
 
     <body>
+    <?php require "top_menu_bar.php"; ?>
+
         <h1>Dashboard </h1> 
 
         <form>

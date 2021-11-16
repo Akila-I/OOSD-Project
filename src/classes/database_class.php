@@ -10,7 +10,7 @@ class database{
     }
     private function connect(){
         //EDIT THIS LINE ACCORDINGLY
-        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=Library', 'phpmyadmin', 'phpmyadmin');
+        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=library_new', 'phpmyadmin', 'phpmyadmin');
     }
 
     function validateUser($username, $password){

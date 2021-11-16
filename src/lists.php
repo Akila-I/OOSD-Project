@@ -52,9 +52,7 @@ require_once "db_funcs_getters.php";
     <title>Document</title>  <!--button value -->
 </head>
 <body>
-<header>
-    <!--include header -->
-</header> 
+<?php require "top_menu_bar.php"; ?>
 
 <div class="container">
     <div>
@@ -75,7 +73,7 @@ require_once "db_funcs_getters.php";
           echo ("<div class='author'>$book_author</div>");
           echo ("<div class='year'>$book_year</div>");
           echo ("<div class='category'>$book_catagory</div>");
-          echo ('<input type="submit" value="open"></li>');
+          echo ('<a href="bookview.php?id='.$book_id.'"><input type="submit" value="open"></a></li>');
           
 
         }
