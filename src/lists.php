@@ -1,5 +1,8 @@
 <?php
-      require_once "db_funcs_getters.php";
+
+use function PHPSTORM_META\type;
+
+require_once "db_funcs_getters.php";
         
       /* 1 -> finished list
          2 -> reading list
@@ -32,8 +35,8 @@
         return $book_list;
 
       }
-    
-      $x = get_list(3);  //submit button value---------------------
+      $type = $_GET['type'];
+      $x = get_list((int)$type);  //submit button value---------------------
       //print_r($x);
 
     ?>
@@ -83,8 +86,8 @@
       
       </ul>
     </div>
-
-<div>
+    <a href="homepage.php"> <input type="button" value="Home"></a>
+ </div>
 
 
 </body>
