@@ -10,7 +10,7 @@ class database{
     }
     private function connect(){
         //EDIT THIS LINE ACCORDINGLY
-        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=Library', 'phpmyadmin', 'phpmyadmin');
+        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=Library', 'root');
     }
 
     function validateUser($username, $password){
@@ -83,4 +83,72 @@ class database{
             ':r' => $role
         ));
     }
+
+    function getUserFavBooks($user_id){
+        
+        $sql = "SELECT book_id FROM Favourites WHERE user_id = :u_id";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id
+        ));
+        $arr = array();
+    
+        while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_readings['book_id']);
+        }
+    
+        return $arr;
+    }
+
+    function getUserReadingBooks($user_id){
+    
+        $sql = "SELECT book_id FROM UserBooks WHERE user_id = :u_id AND state = :stt";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':stt' => "Reading"
+        ));
+    
+        $arr = array();
+    
+        while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_readings['book_id']);
+        }
+        return $arr;
+       
+    }
+
+    function getUserFinishedBooks($user_id){
+    
+        $sql = "SELECT book_id FROM UserBooks WHERE user_id = :u_id AND state = :stt";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':stt' => "Finished"
+        ));
+        $arr = array();
+    
+        while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_readings['book_id']);
+        }
+        return $arr;
+    }
+
+    function getBookDetails($book_id){
+
+        $sql = "SELECT * FROM Books WHERE book_id = :b_id";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':b_id' => $book_id
+        ));
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+    
+        return $db_details;     //formatting to JSONs?
+    }
+    
+    
 }
