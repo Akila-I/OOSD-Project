@@ -40,11 +40,20 @@ class user{
     public function viewBookList(){
     } 
 
-    public function viewFavList(){}
+    public function viewFavList(){
+        $x = $this->database_connection->getUserFavBooks($this->user_id);
+        return $x;
+    }
 
-    public function viewFinishedList(){}
+    public function viewFinishedList(){
+        $x = $this->database_connection->getUserFinishedBooks($this->user_id);
+        return $x;
+    }
 
-    public function viewReadingList(){}
+    public function viewReadingList(){
+        $x = $this->database_connection->getUserReadingBooks($this->user_id);
+        return $x;
+    }
 
     public function addToFavList($book_id){}
 

@@ -15,6 +15,7 @@
 
 
 <?php
+$msg ="";
 if(!empty($_REQUEST['msg'])){
     $msg='*'.$_REQUEST['msg'];
  }

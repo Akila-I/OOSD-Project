@@ -2,7 +2,7 @@
 
 use function PHPSTORM_META\type;
 
-require_once "db_funcs_getters.php";
+require_once "../src/classes/user_class.php";
         
       /* 1 -> finished list
          2 -> reading list
@@ -10,26 +10,31 @@ require_once "db_funcs_getters.php";
          
       $user = '1'; //user id-----------------
 
+      
       function get_list($list_type){
         global $user;
         $book_list = null;
+        $list_name = 'List';
 
         //finished list
         if($list_type === 1)
         {
+          $list_name = "Finished Books";
           $book_list = getUserFinishedBooks($user);
             
         }
         //reading list
         elseif($list_type === 2){
 
+          $list_name = "Reading Books";
           $book_list = getUserReadingBooks($user);
 
         }
         //favourites list
         elseif($list_type === 3){
 
-          $book_list = getUserFavBooks($user);
+          $list_name = "Favourites";
+          $book_list = $this->viewFavList();
       
         }
         return $book_list;
@@ -49,7 +54,7 @@ require_once "db_funcs_getters.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title>Document</title>  <!--button value -->
+    <title><?php $list_name?></title>  <!--button value -->
 </head>
 <body>
 <header>
