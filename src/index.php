@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Login Form</title>
+        <title>Virutal Library - Login</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="style.css">
@@ -16,7 +16,7 @@
 <?php
 require_once "classes/user_class.php";
 session_start();
-
+$msg="";
 if(!empty($_REQUEST['msg'])){
     $msg='*'.$_REQUEST['msg'];
  }
@@ -45,7 +45,7 @@ if(!empty($_REQUEST['msg'])){
                         </div>
 
                         <div class="form-group">
-                            <a href="register.php" class="Register" value="Login">Register New User</a>
+                            <a href="register.php" class="Register" value="Login">Register</a>
                         </div>
                     </form>
                 </div>

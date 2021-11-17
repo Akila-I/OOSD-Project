@@ -151,4 +151,32 @@ class database{
     }
     
     
+    function getUserID($username){
+        $sql = "SELECT * FROM Users WHERE username = :un";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':un' => $username
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['user_id'];
+    }
+
+    function getSubsDetails($user_id){
+
+    }
+
+    function addToFavourites($user_id, $book_id){
+
+        $sql = "INSERT INTO favourites(user_id,book_id) VALUES (:ui, :bi)";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':ui' => $user_id,
+            ':bi' => $book_id
+        ));
+
+    }
 }

@@ -9,8 +9,8 @@ $login_pasword=$_GET['login_pasword'];
 $database_connection = new database();
 $validation_msg = $database_connection->validateUser($login_username,$login_pasword);
 if($validation_msg === true){
-    //go to dashboard
     $_SESSION['username'] = $login_username;
+    $_SESSION['userID'] = $database_connection->getUserID($login_username);
     header("Location: ../homepage.php");
 }
 else{

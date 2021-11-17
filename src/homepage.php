@@ -1,10 +1,18 @@
-
-<html>
-    <head>
-        <title>Homepage</title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Library - Home</title>  <!--button value -->
+</head>
 
     <body>
+    <?php require "top_menu_bar.php"; ?>
+
         <h1>Dashboard </h1> 
 
         <form>
@@ -29,7 +37,5 @@
           
         <a href=""><img src="f1.png" width="100" height="100"> </a> <!-- Account -->
         <a href=""> Buy Books</a> <!-- Buy -->
-
-        <a href="servers/logout_server.php"> <input type="button" value="Logout"></a>
     </body>
 </html>

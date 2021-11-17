@@ -1,20 +1,27 @@
 <?php
+session_start();
 
 use function PHPSTORM_META\type;
 
 require_once "../src/classes/user_class.php";
+require_once "db_funcs_getters.php";
         
       /* 1 -> finished list
          2 -> reading list
          3 -> favourites */
          
-      $user = '1'; //user id-----------------
-
-      
       function get_list($list_type){
-        global $user;
+        $user = $_SESSION['userID']; //user id-----------------
         $book_list = null;
         $list_name = 'List';
+
+        //all list
+        if($list_type === 0)
+        {
+
+          $book_list = getAllBooks();
+            
+        }
 
         //finished list
         if($list_type === 1)
@@ -34,7 +41,7 @@ require_once "../src/classes/user_class.php";
         elseif($list_type === 3){
 
           $list_name = "Favourites";
-          $book_list = $this->viewFavList();
+          $book_list = getUserFavBooks($user);
       
         }
         return $book_list;
@@ -42,7 +49,7 @@ require_once "../src/classes/user_class.php";
       }
       $type = $_GET['type'];
       $x = get_list((int)$type);  //submit button value---------------------
-      //print_r($x);
+      // print_r($x);
 
     ?>
 
@@ -53,13 +60,15 @@ require_once "../src/classes/user_class.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
     <title><?php $list_name?></title>  <!--button value -->
+    <title>Virtual Library - Books</title>  <!--button value -->
 </head>
 <body>
-<header>
-    <!--include header -->
-</header> 
+<?php require "top_menu_bar.php"; ?>
 
 <div class="container">
     <div>
@@ -80,18 +89,19 @@ require_once "../src/classes/user_class.php";
           echo ("<div class='author'>$book_author</div>");
           echo ("<div class='year'>$book_year</div>");
           echo ("<div class='category'>$book_catagory</div>");
-          echo ('<input type="submit" value="open"></li>');
-          
+          echo ('<a href="bookview.php?id='.$book_id.'"><input type="submit" value="open"></a></li>');
+          if ($type == 0) {
+            
+          }
 
         }
         
       ?>
       
-        
+      <button ></button>
       
       </ul>
     </div>
-    <a href="homepage.php"> <input type="button" value="Home"></a>
  </div>
 
 
