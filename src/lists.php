@@ -1,57 +1,76 @@
 <?php
 session_start();
+$user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
 
-require_once "../src/classes/user_class.php";
+//require_once "../src/classes/user_class.php";
 require_once "db_funcs_getters.php";
+require_once "db_funcs_setters.php";
+
+if( isset($_POST)){
+  
+  if (isset($_POST['Book']))
+  {
+    $book_id = $_POST['Book'];
+  }
+
+  if( isset($_POST['Open'])){
+
+    print_r($book_id);
+    header("Location: bookview.php?id=$book_id");
+
+  }
+  elseif( isset($_POST['AddtoFav'])){
+    
+    $fav = getUserFavBooks($user);
+    if(!in_array($book_id, $fav))
+    {
+      addToFav($user, $book_id);
+    }
+  }
+
+}
         
-      /* 1 -> finished list
-         2 -> reading list
-         3 -> favourites */
-         
-      function get_list($list_type){
-        $user = $_SESSION['userID']; //user id-----------------
-        $book_list = null;
-        $list_name = 'List';
+function get_list($list_type){
+  
+  global $list_name ;
+  global $user;
 
-        //all list
-        if($list_type === 0)
-        {
+  $book_list = null;
+  
+  //all list
+  if($list_type === 0)
+  {
+    $book_list = getAllBooks();
+  }
+  //finished list
+  if($list_type === 1)
+  {
+    $list_name = "Finished Books";
+    $book_list = getUserFinishedBooks($user);
+  }
+  //reading list
+  elseif($list_type === 2){
 
-          $book_list = getAllBooks();
-            
-        }
+    $list_name = "Reading Books";
+    $book_list = getUserReadingBooks($user);
+  }
+       
+  //favourites list
+  elseif($list_type === 3){
 
-        //finished list
-        if($list_type === 1)
-        {
-          $list_name = "Finished Books";
-          $book_list = getUserFinishedBooks($user);
-            
-        }
-        //reading list
-        elseif($list_type === 2){
+    $list_name = "Favourites";
+    $book_list = getUserFavBooks($user);
+  }
+  return $book_list;
 
-          $list_name = "Reading Books";
-          $book_list = getUserReadingBooks($user);
-
-        }
-        //favourites list
-        elseif($list_type === 3){
-
-          $list_name = "Favourites";
-          $book_list = getUserFavBooks($user);
-      
-        }
-        return $book_list;
-
-      }
+}
       $type = $_GET['type'];
-      $x = get_list((int)$type);  //submit button value---------------------
-      // print_r($x);
-
-    ?>
+      $list_name = "Library";
+      $x = get_list((int)$type); 
+     
+?>
 
 
 <!DOCTYPE html>
@@ -61,11 +80,10 @@ require_once "db_funcs_getters.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="style.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title><?php $list_name?></title>  <!--button value -->
-    <title>Virtual Library - Books</title>  <!--button value -->
+    <title> <?php echo $list_name?> </title>  
 </head>
 <body>
 <?php require "top_menu_bar.php"; ?>
@@ -89,16 +107,21 @@ require_once "db_funcs_getters.php";
           echo ("<div class='author'>$book_author</div>");
           echo ("<div class='year'>$book_year</div>");
           echo ("<div class='category'>$book_catagory</div>");
-          echo ('<a href="bookview.php?id='.$book_id.'"><input type="submit" value="open"></a></li>');
-          if ($type == 0) {
-            
-          }
 
+          echo ("<form method = 'POST'>");
+          echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
+          echo ('<input type="submit" name="Open" value="open">');
+          
+          if ($type == 0) {
+            echo ('<input type="submit" name="AddtoFav" value="add to favourites">');
+          }
+    
+          echo ('</form></li>');
         }
         
       ?>
       
-      <button ></button>
+      
       
       </ul>
     </div>

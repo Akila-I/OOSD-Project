@@ -179,4 +179,23 @@ class database{
         ));
 
     }
+ 
+
+    function getAllBooks(){
+        global $pdo;
+    
+        $sql = "SELECT book_id FROM Books";
+    
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+            
+        $arr = array();
+    
+        while( $db_books = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_books['book_id']);
+        }
+    
+        return $arr;
+    }
+
 }
