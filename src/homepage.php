@@ -35,7 +35,7 @@
             <a href="lists.php?type=1"> Finished List</a>
         </div>
           
-        <a href=""><img src="f1.png" width="100" height="100"> </a> <!-- Account -->
-        <a href=""> Buy Books</a> <!-- Buy -->
+        <!-- <a href=""><img src="f1.png" width="100" height="100"> </a>   --> <!-- Account -->
+        <a href="add_book.php"> Donate a Book </a> <!-- Buy -->
     </body>
 </html>
