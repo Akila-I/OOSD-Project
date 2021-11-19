@@ -14,7 +14,7 @@
         <div class="row">
         <div class="col-md-6 login-form-1">
         <h3>Donate a Book</h3>
-        <form action="servers/register_server.php" method="get">
+        <form action="servers/add_book_server.php" method="get">
             <div class="form-group">
                 <input type="text" class="form-control" name="book_title" placeholder="Book Title" value="" required/>
             </div>
@@ -49,7 +49,7 @@
 
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Register" />
-                            <a href="index.php"><input type="button"value="Back" /></a>
+                            <a href="homepage.php"><input type="button"value="Back" /></a>
                         </div>
                     </form>
                 </div>

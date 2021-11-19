@@ -1,0 +1,32 @@
+Function headers in database class
+
+validateUser($username, $password)
+
+getUserDetails($username)
+
+usernameAvailability($username)
+
+addUser($fname,$lname,$username,$email,$password,$role)
+
+getUserFavBooks($user_id)
+
+addToFav($user_id, $book_id)
+
+removeFromFav($user_id, $book_id)
+
+getUserReadingBooks($user_id)
+
+getUserFinishedBooks($user_id)
+
+addToUserBooks($user_id, $book_id, $state)
+
+getBookDetails($book_id)
+
+getUserID($username)
+
+addSubs($user_id, $state, $subs_date)
+
+addCard($user_id, $card_num, $valid_till)
+
+getAllBooks()
+

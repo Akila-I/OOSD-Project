@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../pdo/pdo.php";
 
 class database{
     //singleton
@@ -10,7 +11,8 @@ class database{
     }
     private function connect(){
         //EDIT THIS LINE ACCORDINGLY
-        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=Library', 'root');
+        global $local_pdo;
+        $this->pdo = $local_pdo;
     }
 
     function validateUser($username, $password){
@@ -101,6 +103,30 @@ class database{
         return $arr;
     }
 
+    function addToFav($user_id, $book_id){
+    
+        $sql = "INSERT INTO Favourites (user_id, book_id)
+        VALUES (:u_id, :b_id)";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':b_id' => $book_id
+        ));
+    }
+
+    function removeFromFav($user_id, $book_id){
+    
+        $sql = "DELETE FROM Favourites
+        WHERE user_id = :u_id AND book_id = :b_id";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':b_id' => $book_id
+        ));
+    }
+
     function getUserReadingBooks($user_id){
     
         $sql = "SELECT book_id FROM UserBooks WHERE user_id = :u_id AND state = :stt";
@@ -137,6 +163,19 @@ class database{
         return $arr;
     }
 
+    function addToUserBooks($user_id, $book_id, $state){
+    
+        $sql = "INSERT INTO UserBooks (user_id, book_id, state)
+        VALUES (:u_id, :b_id, :stt)";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':b_id' => $book_id,
+            ':stt' => $state
+        ));
+    }
+
     function getBookDetails($book_id){
 
         $sql = "SELECT * FROM Books WHERE book_id = :b_id";
@@ -164,29 +203,36 @@ class database{
         return $db_details['user_id'];
     }
 
-    function getSubsDetails($user_id){
-
-    }
-
-    function addToFavourites($user_id, $book_id){
-
-        $sql = "INSERT INTO favourites(user_id,book_id) VALUES (:ui, :bi)";
-
+    function addSubs($user_id, $state, $subs_date){
+    
+        $sql = "INSERT INTO Subscriptions (user_id, subs_status, subs_date)
+        VALUES (:u_id, :stt, :sub_date)";
+    
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
-            ':ui' => $user_id,
-            ':bi' => $book_id
+            ':u_id' => $user_id,
+            ':stt' => $state,
+            ':sub_date' => $subs_date
         ));
-
     }
- 
 
-    function getAllBooks(){
-        global $pdo;
+    function addCard($user_id, $card_num, $valid_till){
     
+        $sql = "INSERT INTO CardDetails (user_id, card_number, valid_till)
+        VALUES (:u_id, :c_num, :valid_till)";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':c_num' => $card_num,
+            ':valid_till' => $valid_till
+        ));
+    }
+
+    function getAllBooks(){    
         $sql = "SELECT book_id FROM Books";
     
-        $statement = $pdo->prepare($sql);
+        $statement = $this->pdo->prepare($sql);
         $statement->execute();
             
         $arr = array();

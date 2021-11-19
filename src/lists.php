@@ -1,12 +1,10 @@
 <?php
+require_once __DIR__."/classes/database_class.php";
 session_start();
 $user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
-
-//require_once "../src/classes/user_class.php";
-require_once "db_funcs_getters.php";
-require_once "db_funcs_setters.php";
+$database_connection = new database();
 
 if( isset($_POST)){
   
@@ -23,10 +21,10 @@ if( isset($_POST)){
   }
   elseif( isset($_POST['AddtoFav'])){
     
-    $fav = getUserFavBooks($user);
+    $fav = $database_connection->getUserFavBooks($user);
     if(!in_array($book_id, $fav))
     {
-      addToFav($user, $book_id);
+      $database_connection->addToFav($user, $book_id);
     }
   }
 
@@ -36,32 +34,33 @@ function get_list($list_type){
   
   global $list_name ;
   global $user;
+  global $database_connection;
 
   $book_list = null;
   
   //all list
   if($list_type === 0)
   {
-    $book_list = getAllBooks();
+    $book_list = $database_connection->getAllBooks();
   }
   //finished list
   if($list_type === 1)
   {
     $list_name = "Finished Books";
-    $book_list = getUserFinishedBooks($user);
+    $book_list = $database_connection->getUserFinishedBooks($user);
   }
   //reading list
   elseif($list_type === 2){
 
     $list_name = "Reading Books";
-    $book_list = getUserReadingBooks($user);
+    $book_list = $database_connection->getUserReadingBooks($user);
   }
        
   //favourites list
   elseif($list_type === 3){
 
     $list_name = "Favourites";
-    $book_list = getUserFavBooks($user);
+    $book_list = $database_connection->getUserFavBooks($user);
   }
   return $book_list;
 
@@ -94,7 +93,7 @@ function get_list($list_type){
       <?php
         foreach ($x as $key => $value) {
 
-          $book_details = getBookDetails($value);
+          $book_details = $database_connection->getBookDetails($value);
          
           $book_title = $book_details['title'];
           $book_author = $book_details['author'];
