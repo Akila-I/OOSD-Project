@@ -51,6 +51,23 @@ class database{
 
         return $db_details;
     }
+
+    function getSubscriptionInfo($userID){
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':userid' => $userID;
+        ));
+
+        $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        end($sub_details);
+        $last_key = key($sub_details);
+
+        return sub_details[$last_key];
+        
+    }
     
     function getUserID($username){
         $sql = "SELECT * FROM Users WHERE username = :un";
