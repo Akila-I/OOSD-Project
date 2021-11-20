@@ -57,7 +57,7 @@ class database{
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
-            ':userid' => $userID;
+            ':userid' => $userID
         ));
 
         $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +65,7 @@ class database{
         end($sub_details);
         $last_key = key($sub_details);
 
-        return sub_details[$last_key];
+        return $sub_details[$last_key];
         
     }
     
