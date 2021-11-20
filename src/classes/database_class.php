@@ -57,7 +57,7 @@ class database{
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
-            ':userid' => $userID;
+            ':userid' => $userID
         ));
 
         $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
