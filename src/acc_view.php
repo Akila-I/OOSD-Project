@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['userID']===null){
+    header("Location: index.php?msg=Please Login First");
+}
 require "classes/database_class.php";
 $database_connection = new database();
 
@@ -62,6 +65,7 @@ $user_data = $database_connection->getUserDetails($_SESSION['username']);
                         <div class="form-group">
                         <a href="acc_edit.php"><input type="button" value="Edit Details"></a>
                         <a href=""><input type="button" value="Cancel subscription"></a>
+                        <a href="homepage.php"><input type="button" value="Back to Home"></a>
                         </div>
                     </form>
                 </div>

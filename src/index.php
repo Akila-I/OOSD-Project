@@ -27,8 +27,10 @@ if(!empty($_REQUEST['msg'])){
 <div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Login</h3>
-                    <form action="servers/login_server.php" method="get">
+                    <br><h3>Virtual Library System</h3>
+                    <h6>Home, the new library</h6>
+                    <br><h3>Login</h3>
+                    <form action="servers/login_server.php" method="post">
                     <Label style="color:red"><?php echo $msg?></label><br>
                         
                         <div class="form-group">
