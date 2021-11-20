@@ -244,4 +244,23 @@ class database{
         return $arr;
     }
 
+    function donateABook($donor_id, $isbn, $title, $author, $year, $catagory, $book)
+    {
+        $sql = 'INSERT INTO books_to_add(donor_id,isbn,title,author,year,category,book)
+                VALUES (:di, :isbn, :ti, :au, :yr, :ctgy, :bk)';
+        
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute( array(
+
+            ':di' => $donor_id,
+            ':isbn' => $isbn,
+            ':ti' => $title,
+            ':au' => $author,
+            ':yr' => $year,
+            ':ctgy' => $catagory,
+            ':bk' => $book
+
+        ));
+    }
+
 }

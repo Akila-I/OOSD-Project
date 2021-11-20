@@ -1,3 +1,21 @@
+<?php
+require_once __DIR__."/classes/database_class.php";
+
+session_start();
+$user = $_SESSION['userID'];
+
+if (isset($_POST['Donate'])) 
+{
+    //print_r($_POST);
+    $database_connection = new database();
+    $database_connection->donateABook($_POST['donor'], $_POST['book_isbn'],$_POST['book_title'], 
+                                      $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory'], $_POST['book']);
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,56 +25,45 @@
     <title>Donate</title>
 </head>
 <body>
+    <h3>Donate a Book</h3>
     <div class="container">
         
     <form action="" method="post">
-    <div class="container login-container">
-        <div class="row">
-        <div class="col-md-6 login-form-1">
-        <h3>Donate a Book</h3>
-        <form action="servers/add_book_server.php" method="get">
+        
+
             <div class="form-group">
-                <input type="text" class="form-control" name="book_title" placeholder="Book Title" value="" required/>
+                <label for="book_title">Title :</label>
+                <input type="text" class="form-control" name="book_title" placeholder="Book Title"  required/>
             </div>
 
             <div class="form-group">
-                <input type="text" class="form-control" name="book_author" placeholder="Author" value="" required/>
+                <label for="book_author">Author :</label>
+                <input type="text" class="form-control" name="book_author" placeholder="Author"  required/>
             </div>
 
             <div class="form-group">
-                <input type="date" class="form-control" name="year" placeholder="Year" value="" required/>
+                <label for="book_year">Year :</label>
+                <input type="integer" class="form-control" name="book_year" placeholder="Year"  required/>
             </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="register_email" placeholder="Email" value="" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="register_pasword"  placeholder="Your Password *" value="" required />
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="register_pasword_confirm"  placeholder="Confirm Your Password *" value="" required />
-                        </div>
-
-                        <div class="form-group">
-                            <select name="register_role" class="form-control" required>
-                                <option value="Default" disabled selected hidden>Select Your Role</option>
-                                <option value="Reader">Reader</option>
-                                <option value="Librarian">Librarian</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Register" />
-                            <a href="homepage.php"><input type="button"value="Back" /></a>
-                        </div>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label for="book_isbn">ISBN :</label>          
+                <input type="text" class="form-control" name="book_isbn" placeholder="ISBN"  required/>
             </div>
-        </div>
 
+            <div class="form-group">
+                <label for="book_catagory">catagory :</label>          
+                <input type="text" class="form-control" name="book_catagory"  placeholder="catagory"  required />
+            </div>
 
+            <div class="form-group">
+                <label for="book">Book :</label>  
+                <input type="text" class="form-control" name="book"  placeholder="book-temp"  required />
+            </div>
+
+            <input type="hidden" name="donor" value= <?php echo $user?> >
+
+            <input type="submit" name="Donate" value="donate">
 
     </form>
 
