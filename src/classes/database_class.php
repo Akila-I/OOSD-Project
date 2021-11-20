@@ -51,6 +51,19 @@ class database{
 
         return $db_details;
     }
+    
+    function getUserID($username){
+        $sql = "SELECT * FROM Users WHERE username = :un";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':un' => $username
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['user_id'];
+    }
 
     function usernameAvailability($username){
         $sql = "SELECT password FROM Users WHERE username = :un";
@@ -104,15 +117,27 @@ class database{
     }
 
     function addToFav($user_id, $book_id){
-    
-        $sql = "INSERT INTO Favourites (user_id, book_id)
-        VALUES (:u_id, :b_id)";
-    
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(array(
+        
+        $sql1 = "SELECT fav_entry_id FROM Favourites WHERE user_id = :u_id AND book_id = :b_id";
+
+        $statement1 = $this->pdo->prepare($sql1);
+        $statement1->execute(array(
             ':u_id' => $user_id,
             ':b_id' => $book_id
         ));
+
+        $availability = $statement1->fetch(PDO::FETCH_ASSOC);
+
+        if ($availability === false){
+            $sql2 = "INSERT INTO Favourites (user_id, book_id)
+            VALUES (:u_id, :b_id)";
+        
+            $statement2 = $this->pdo->prepare($sql2);
+            $statement2->execute(array(
+                ':u_id' => $user_id,
+                ':b_id' => $book_id
+            ));
+        }
     }
 
     function removeFromFav($user_id, $book_id){
@@ -165,15 +190,28 @@ class database{
 
     function addToUserBooks($user_id, $book_id, $state){
     
-        $sql = "INSERT INTO UserBooks (user_id, book_id, state)
-        VALUES (:u_id, :b_id, :stt)";
-    
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(array(
+        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id AND state = :stt";
+
+        $statement1 = $this->pdo->prepare($sql1);
+        $statement1->execute(array(
             ':u_id' => $user_id,
             ':b_id' => $book_id,
             ':stt' => $state
         ));
+
+        $availability = $statement1->fetch(PDO::FETCH_ASSOC);
+
+        if ($availability === false){
+            $sql2 = "INSERT INTO UserBooks (user_id, book_id, state)
+            VALUES (:u_id, :b_id, :stt)";
+        
+            $statement2 = $this->pdo->prepare($sql2);
+            $statement2->execute(array(
+                ':u_id' => $user_id,
+                ':b_id' => $book_id,
+                ':stt' => $state
+            ));
+        }
     }
 
     function getBookDetails($book_id){
@@ -187,20 +225,6 @@ class database{
         $db_details = $statement->fetch(PDO::FETCH_ASSOC);
     
         return $db_details;     //formatting to JSONs?
-    }
-    
-    
-    function getUserID($username){
-        $sql = "SELECT * FROM Users WHERE username = :un";
-
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(array(
-            ':un' => $username
-        ));
-
-        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $db_details['user_id'];
     }
 
     function addSubs($user_id, $state, $subs_date){

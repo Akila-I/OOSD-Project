@@ -1,3 +1,9 @@
+<?php
+session_start();
+if($_SESSION['userID']===null){
+    header("Location: index.php?msg=Please Login First");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +18,7 @@
 
     <body>
     <?php require "top_menu_bar.php"; ?>
-
+    <div  class="col-md-6 login-form-1">
         <h1>Dashboard </h1> 
 
         <form>
@@ -37,5 +43,6 @@
           
         <!-- <a href=""><img src="f1.png" width="100" height="100"> </a>   --> <!-- Account -->
         <a href="add_book.php"> Donate a Book </a> <!-- Buy -->
+    </div>
     </body>
 </html>

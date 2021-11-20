@@ -1,7 +1,10 @@
 <?php
-
+session_start();
+if($_SESSION['userID']===null){
+    header("Location: index.php?msg=Please Login First");
+}
 $bookID = $_GET['id'];
-
+$_SESSION['bookID'] = $bookID;
 ?>
 
 <html>
@@ -23,7 +26,19 @@ $bookID = $_GET['id'];
     </head>
     <body>
     <?php require "top_menu_bar.php"; ?>
+        <div style="margin-left: 5%;">
+            <form action="servers/bookview_server.php" method="post">
+            <input type="button" value="Back" onclick="history.back()">
 
+            <input type="submit" name="AddToFav" class="button" value="Add to Favourites" />
+            
+            <input type="submit" name="ReadLater" class="button" value="Read Later" />
+
+            <input type="submit" name="FinishReading" class="button" value="Finish Reading" />
+
+            </form>
+
+        </div>
         <div id="scroller">
             <iframe name="myiframe" id="myiframe" src="../books/<?php echo$bookID;?>.pdf"></iframe>
         </div>

@@ -2,8 +2,8 @@
 require_once __DIR__."/../classes/database_class.php";
 session_start();
 
-$login_username=$_GET['login_username'];
-$login_pasword=$_GET['login_pasword'];
+$login_username=$_POST['login_username'];
+$login_pasword=$_POST['login_pasword'];
 
 
 $database_connection = new database();
