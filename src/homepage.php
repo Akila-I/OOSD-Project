@@ -11,7 +11,17 @@
 </head>
 
     <body>
+    <?php
+        session_start();
+            $msg="";
+        if(!empty($_REQUEST['msg'])){
+            $msg = $_REQUEST['msg'];
+            echo $msg;
+        }
+
+    ?>
     <?php require "top_menu_bar.php"; ?>
+    
 
         <h1>Dashboard </h1> 
 
