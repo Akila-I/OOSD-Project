@@ -51,6 +51,23 @@ class database{
 
         return $db_details;
     }
+
+    function getSubscriptionInfo($userID){
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':userid' => $userID
+        ));
+
+        $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        end($sub_details);
+        $last_key = key($sub_details);
+
+        return $sub_details[$last_key];
+        
+    }
     
     function getUserID($username){
         $sql = "SELECT * FROM Users WHERE username = :un";
@@ -96,6 +113,22 @@ class database{
             ':em' => $email,
             ':pw' => $password,
             ':r' => $role
+        ));
+    }
+
+    function updateUser($user_id,$fname,$lname,$username,$email,$password){
+        /*$sql = "INSERT INTO Users(f_name,l_name,username,email,password,role) 
+        VALUES (:fn, :ln, :un, :em, :pw, :r)";*/
+        $sql="UPDATE Users SET f_name = :fn, l_name = :ln, username = :un, email = :em, password = :pw WHERE user_id = :u_id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':fn' => $fname,
+            ':ln' => $lname,
+            ':un' => $username,
+            ':em' => $email,
+            ':pw' => $password,
+            ':u_id' => $user_id
         ));
     }
 
@@ -190,13 +223,12 @@ class database{
 
     function addToUserBooks($user_id, $book_id, $state){
     
-        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id AND state = :stt";
+        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id";
 
         $statement1 = $this->pdo->prepare($sql1);
         $statement1->execute(array(
             ':u_id' => $user_id,
-            ':b_id' => $book_id,
-            ':stt' => $state
+            ':b_id' => $book_id
         ));
 
         $availability = $statement1->fetch(PDO::FETCH_ASSOC);
@@ -207,6 +239,18 @@ class database{
         
             $statement2 = $this->pdo->prepare($sql2);
             $statement2->execute(array(
+                ':u_id' => $user_id,
+                ':b_id' => $book_id,
+                ':stt' => $state
+            ));
+        }
+        else if($availability['state'] !== $state){
+
+            $sql3 = "UPDATE UserBooks SET state = :stt 
+            WHERE user_id = :u_id AND book_id = :b_id";
+
+            $statement3 = $this->pdo->prepare($sql3);
+            $statement3->execute(array(
                 ':u_id' => $user_id,
                 ':b_id' => $book_id,
                 ':stt' => $state

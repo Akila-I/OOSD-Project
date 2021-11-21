@@ -65,6 +65,7 @@ $user_data = $database_connection->getUserDetails($_SESSION['username']);
                         <div class="form-group">
                         <a href="acc_edit.php"><input type="button" value="Edit Details"></a>
                         <a href=""><input type="button" value="Cancel subscription"></a>
+                        <a href="Subscription.php"><input type="button" value="Subscribe"></a>
                         <a href="homepage.php"><input type="button" value="Back to Home"></a>
                         </div>
                     </form>
