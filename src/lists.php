@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__."/classes/database_class.php";
 session_start();
+if($_SESSION['userID']===null){
+  header("Location: index.php?msg=Please Login First");
+}
 $user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
@@ -20,12 +23,7 @@ if( isset($_POST)){
 
   }
   elseif( isset($_POST['AddtoFav'])){
-    
-    $fav = $database_connection->getUserFavBooks($user);
-    if(!in_array($book_id, $fav))
-    {
       $database_connection->addToFav($user, $book_id);
-    }
   }
 
 }
@@ -86,7 +84,9 @@ function get_list($list_type){
 </head>
 <body>
 <?php require "top_menu_bar.php"; ?>
-
+<div style="margin-left: 0;">
+  <input type="button" value="Back" onclick="history.back()">
+</div>
 <div class="container">
     <div>
       <ul>
