@@ -39,7 +39,12 @@ if(!empty($_REQUEST['msg'])){
                     <Label style="color:red"><?php echo $msg?></label>
 
                         <div class="form-group">
-                            <label for="fname">Frist Name</label>
+                            <label for="u_id">User ID</label>
+                            <input type="text" class="form-control" name="edit_u_id" value=<?php echo $user_data['user_id'];?> disabled/>
+                        </div>    
+
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
                             <input type="text" class="form-control" name="edit_fname" value=<?php echo $user_data['f_name'];?> required/>
                         </div>
 
