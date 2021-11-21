@@ -39,7 +39,17 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 </head>
 
     <body>
+    <?php
+        session_start();
+            $msg="";
+        if(!empty($_REQUEST['msg'])){
+            $msg = $_REQUEST['msg'];
+            echo $msg;
+        }
+
+    ?>
     <?php require "top_menu_bar.php"; ?>
+    
     <div  class="col-md-6 login-form-1">
         <h1>Virtual Lobby</h1> 
 
