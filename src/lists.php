@@ -101,7 +101,7 @@ function get_list($list_type){
           $book_catagory = $book_details['category'];
           $book_id = $book_details['book_id'];
 
-          echo ('<li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/>');
+          echo ('<li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/>');
           echo ("<div class='title'>$book_title</div>");
           echo ("<div class='author'>$book_author</div>");
           echo ("<div class='year'>$book_year</div>");
