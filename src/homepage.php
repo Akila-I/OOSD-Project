@@ -30,7 +30,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 
     img{
 
-        width: 250px;
+        width: 200px;
         height: 300px;
         /*align-self: auto;*/
         
@@ -68,7 +68,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                 $book_details = $database_connection->getBookDetails($book_id);
                 echo ('<td>
                 <ul style="list-style-type:none">
-                <li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/></li><br>
+                <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
                 <li>'.$book_details['title'].'</li>
                 </ul>
                 </td>');
@@ -98,7 +98,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/></li><br>
+                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
                     <li>'.$book_details['title'].'</li>
                     </ul>
                     </td>');
@@ -129,7 +129,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/></li><br>
+                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
                     <li>'.$book_details['title'].'</li>
                     </ul>
                     </td>');
@@ -160,7 +160,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.png" alt="x" align ="left"/></li><br>
+                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
                     <li>'.$book_details['title'].'</li>
                     </ul>
                     </td>');
