@@ -116,6 +116,22 @@ class database{
         ));
     }
 
+    function updateUser($user_id,$fname,$lname,$username,$email,$password){
+        /*$sql = "INSERT INTO Users(f_name,l_name,username,email,password,role) 
+        VALUES (:fn, :ln, :un, :em, :pw, :r)";*/
+        $sql="UPDATE Users SET f_name = :fn, l_name = :ln, username = :un, email = :em, password = :pw WHERE user_id = :u_id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':fn' => $fname,
+            ':ln' => $lname,
+            ':un' => $username,
+            ':em' => $email,
+            ':pw' => $password,
+            ':u_id' => $user_id
+        ));
+    }
+
     function getUserFavBooks($user_id){
         
         $sql = "SELECT book_id FROM Favourites WHERE user_id = :u_id";
