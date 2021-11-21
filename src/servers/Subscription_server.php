@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__."/../classes/database_class.php";
 
-$username=$_GET['username'];
-$email=$_GET['email'];
-$cardnum=$_GET['cardnum'];
-$exp=$_GET['exp'];
-$cvv=$_GET['cvv'];
+$username=$_POST['username'];
+$email=$_POST['email'];
+$cardnum=$_POST['cardnum'];
+$exp=$_POST['exp'];
+$cvv=$_POST['cvv'];
 $state = 'True';
 $subs_date = date("Y-m-d");
 

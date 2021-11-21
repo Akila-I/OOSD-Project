@@ -40,7 +40,6 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 
     <body>
     <?php
-        session_start();
             $msg="";
         if(!empty($_REQUEST['msg'])){
             $msg = $_REQUEST['msg'];
@@ -85,8 +84,8 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
             <table><tr>
                 <?php
                 for($i = 0; $i<3; $i++){
-                    $book_id = $fav[$i];
-                    if($book_id === null){
+                    
+                    if(sizeof($fav)<=$i){
                         echo ('<td>
                     <ul style="list-style-type:none">
                     <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
@@ -95,6 +94,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     </td>');
                     }
                     else{
+                    $book_id = $fav[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">
@@ -116,8 +116,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
             <table><tr>
                 <?php
                 for($i = 0; $i<3; $i++){
-                    $book_id = $reading[$i];
-                    if($book_id === null){
+                    if(sizeof($reading)<=$i){
                         echo ('<td>
                     <ul style="list-style-type:none">
                     <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
@@ -126,6 +125,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     </td>');
                     }
                     else{
+                    $book_id = $reading[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">
@@ -147,8 +147,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
             <table><tr>
                 <?php
                 for($i = 0; $i<3; $i++){
-                    $book_id = $finished[$i];
-                    if($book_id === null){
+                    if(sizeof($finished)<=$i){
                         echo ('<td>
                     <ul style="list-style-type:none">
                     <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
@@ -157,6 +156,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     </td>');
                     }
                     else{
+                    $book_id = $finished[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
                     <ul style="list-style-type:none">

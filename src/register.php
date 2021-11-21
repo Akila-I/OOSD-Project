@@ -25,7 +25,7 @@ if(!empty($_REQUEST['msg'])){
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Register</h3>
-                    <form action="servers/register_server.php" method="get">
+                    <form action="servers/register_server.php" method="POST">
                     <Label style="color:red"><?php echo $msg?></label>
 
                         <div class="form-group">

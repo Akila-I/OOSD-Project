@@ -1,13 +1,13 @@
 <?php
 require_once __DIR__."/../classes/database_class.php";
 
-$register_fname=$_GET['register_fname'];
-$register_lname=$_GET['register_lname'];
-$register_username=$_GET['register_username'];
-$register_email=$_GET['register_email'];
-$register_pasword=$_GET['register_pasword'];
-$register_pasword_confirm=$_GET['register_pasword_confirm'];
-$register_role=$_GET['register_role'];
+$register_fname=$_POST['register_fname'];
+$register_lname=$_POST['register_lname'];
+$register_username=$_POST['register_username'];
+$register_email=$_POST['register_email'];
+$register_pasword=$_POST['register_pasword'];
+$register_pasword_confirm=$_POST['register_pasword_confirm'];
+$register_role=$_POST['register_role'];
 
 
 $database_connection = new database();

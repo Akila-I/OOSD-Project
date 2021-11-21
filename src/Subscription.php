@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Subscription</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -19,7 +21,7 @@
         <h1>Subscription Form </h1>
         <div>
             <h2>User Details</h2>
-            <form action="servers/Subscription_server.php" method="GET">
+            <form action="servers/Subscription_server.php" method="POST">
                 <label for="username">Username</label>
                 <input type="text" name="username"  placeholder="Username (required)" required /><br>
                 <label for="email">Email</label>

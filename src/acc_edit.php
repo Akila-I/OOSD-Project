@@ -35,7 +35,7 @@ if(!empty($_REQUEST['msg'])){
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Edit Account Information</h3>
-                    <form action="servers/edit_acc_server.php" method="get">
+                    <form action="servers/edit_acc_server.php" method="POST">
                     <Label style="color:red"><?php echo $msg?></label>
 
                         <div class="form-group">
@@ -60,12 +60,12 @@ if(!empty($_REQUEST['msg'])){
 
                         <div class="form-group">
                             <label for="pw">Password</label>
-                            <input type="password" class="form-control" name="edit_pasword"  value=<?php echo $user_data['email'];?> required />
+                            <input type="password" class="form-control" name="edit_pasword"  value=<?php echo $user_data['password'];?> required />
                         </div>
 
                         <div class="form-group">
                             <label for="conf_pw">Confirm Password</label>
-                            <input type="password" class="form-control" name="edit_pasword_confirm"  value=<?php echo $user_data['email'];?> required />
+                            <input type="password" class="form-control" name="edit_pasword_confirm"  value=<?php echo $user_data['password'];?> required />
                         </div>
 
                         <div class="form-group">
