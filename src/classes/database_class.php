@@ -207,13 +207,12 @@ class database{
 
     function addToUserBooks($user_id, $book_id, $state){
     
-        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id AND state = :stt";
+        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id";
 
         $statement1 = $this->pdo->prepare($sql1);
         $statement1->execute(array(
             ':u_id' => $user_id,
-            ':b_id' => $book_id,
-            ':stt' => $state
+            ':b_id' => $book_id
         ));
 
         $availability = $statement1->fetch(PDO::FETCH_ASSOC);
@@ -224,6 +223,18 @@ class database{
         
             $statement2 = $this->pdo->prepare($sql2);
             $statement2->execute(array(
+                ':u_id' => $user_id,
+                ':b_id' => $book_id,
+                ':stt' => $state
+            ));
+        }
+        else if($availability['state'] !== $state){
+
+            $sql3 = "UPDATE UserBooks SET state = :stt 
+            WHERE user_id = :u_id AND book_id = :b_id";
+
+            $statement3 = $this->pdo->prepare($sql3);
+            $statement3->execute(array(
                 ':u_id' => $user_id,
                 ':b_id' => $book_id,
                 ':stt' => $state
