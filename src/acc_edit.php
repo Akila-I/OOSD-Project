@@ -22,7 +22,6 @@ if($_SESSION['userID']===null){
 require "classes/database_class.php";
 $database_connection = new database();
 
-$userID = $_SESSION['userID'];
 $user_data = $database_connection->getUserDetails($_SESSION['username']);
 
 $msg="";
@@ -37,11 +36,6 @@ if(!empty($_REQUEST['msg'])){
                     <h3>Edit Account Information</h3>
                     <form action="servers/edit_acc_server.php" method="POST">
                     <Label style="color:red"><?php echo $msg?></label>
-
-                        <div class="form-group">
-                            <label for="u_id">User ID</label>
-                            <input type="text" class="form-control" name="edit_u_id" value=<?php echo $user_data['user_id'];?> disabled/>
-                        </div>    
 
                         <div class="form-group">
                             <label for="fname">First Name</label>

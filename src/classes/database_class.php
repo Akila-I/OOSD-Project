@@ -284,16 +284,18 @@ class database{
         ));
     }
 
-    function addCard($user_id, $card_num, $valid_till){
+    function addCard($user_id, $card_num, $exp_month, $exp_year){
     
-        $sql = "INSERT INTO CardDetails (user_id, card_number, valid_till)
-        VALUES (:u_id, :c_num, :valid_till)";
+        $sql = "INSERT INTO CardDetails (user_id, card_number, exp_month, exp_year)
+        VALUES (:u_id, :c_num, :e_m, :e_y)";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
             ':u_id' => $user_id,
             ':c_num' => $card_num,
-            ':valid_till' => $valid_till
+            ':e_m' => $exp_month,
+            ':e_y' => $exp_year,
+
         ));
     }
 

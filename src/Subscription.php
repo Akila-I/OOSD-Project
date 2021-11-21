@@ -11,6 +11,16 @@
     <body>
 
         <?php
+            session_start();
+
+            if($_SESSION['userID']===null){
+                header("Location: index.php?msg=Please Login First");
+            }
+            require "classes/database_class.php";
+
+            $database_connection = new database();
+
+            $user_data = $database_connection->getUserDetails($_SESSION['username']);
             $msg ="";
             if(!empty($_REQUEST['msg'])){
                 $msg=$_REQUEST['msg'];
@@ -23,13 +33,14 @@
             <h2>User Details</h2>
             <form action="servers/Subscription_server.php" method="POST">
                 <label for="username">Username</label>
-                <input type="text" name="username"  placeholder="Username (required)" required /><br>
+                <input type="text" name="username"  value=<?php echo $user_data['username'];?> readonly /><br>
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Email (required)" required /><br>
+                <input type="email" name="email" value=<?php echo $user_data['email'];?> readonly /><br>
                 <label for="cardnum">Card Number</label>
                 <input type="text" name="cardnum"  placeholder="Card Number (required)" required /><br>
-                <label for="exp">Exp Date</label>
-                <input type="month" name="exp" placeholder="mm-yyyy"/><br>
+                <label for="exp">Expire Date</label>
+                <input type="text" name="exp_month" placeholder="mm"/> /
+                <input type="text" name="exp_year" placeholder="yyyy"/><br>
                 <label for="cvv">CVV</label>
                 <input type="text" name="cvv"  placeholder="CVV (required)" required /><br>    
                 <input type="submit" class="btnSubmit" value="Subscribe"/><br>
