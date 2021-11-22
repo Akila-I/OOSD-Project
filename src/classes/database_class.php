@@ -294,7 +294,7 @@ class database{
 
     function addSubs($user_id, $state, $subs_date){
     
-        $sql = "INSERT INTO Subscriptions (user_id, subs_status, subs_date)
+        $sql = "INSERT INTO subscriptions (user_id, subs_status, subs_date)
         VALUES (:u_id, :stt, :sub_date)";
     
         $statement = $this->pdo->prepare($sql);
@@ -366,4 +366,14 @@ class database{
         return $db_details['subs_status'];
     }
 
+    function unsubscribe($user_id){
+        $sql = "UPDATE subscriptions SET subs_status = :stt
+        WHERE user_id = :u_id";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id,
+            ':stt' => "Cancelled"
+        ));
+    }
 }
