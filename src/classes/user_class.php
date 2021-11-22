@@ -58,7 +58,7 @@ class user{
     }
 
     public function addToFavList($book_id){
-        $this->database_connection->addToFavourites($this->user_id, $book_id);
+        $this->database_connection->addToFav($this->user_id, $book_id);
     }
 
     public function markAsFinished($book_id){}
