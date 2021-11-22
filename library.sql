@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2021 at 04:40 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.8
+-- Generation Time: Nov 22, 2021 at 07:20 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,16 +36,6 @@ CREATE TABLE `books` (
   `category` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `books_to_add` (
-  `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `donor_id` int(10) UNSIGNED NOT NULL,
-  `isbn` varchar(20) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `author` varchar(30) NOT NULL,
-  `year` int(11) DEFAULT NULL,
-  `category` varchar(30) DEFAULT NULL,
-  `book` varchar(255)  NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Dumping data for table `books`
 --
@@ -70,8 +60,17 @@ CREATE TABLE `carddetails` (
   `card_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `card_number` int(20) NOT NULL,
-  `valid_till` datetime NOT NULL
+  `exp_month` int(11) NOT NULL,
+  `exp_year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `carddetails`
+--
+
+INSERT INTO `carddetails` (`card_id`, `user_id`, `card_number`, `exp_month`, `exp_year`) VALUES
+(5, 2, 1234, 4, 2024),
+(6, 1, 3456, 2, 2024);
 
 -- --------------------------------------------------------
 
@@ -117,8 +116,16 @@ CREATE TABLE `subscriptions` (
   `subs_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `subs_status` varchar(10) NOT NULL,
-  `subs_date` datetime NOT NULL
+  `subs_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `subscriptions`
+--
+
+INSERT INTO `subscriptions` (`subs_id`, `user_id`, `subs_status`, `subs_date`) VALUES
+(15, 2, 'Active', '2021-11-21'),
+(16, 1, 'Active', '2021-11-22');
 
 -- --------------------------------------------------------
 
@@ -141,7 +148,8 @@ INSERT INTO `userbooks` (`userbook_id`, `user_id`, `book_id`, `state`) VALUES
 (1, 1, 2, 'reading'),
 (2, 1, 3, 'finished'),
 (3, 1, 4, 'finished'),
-(4, 1, 5, 'reading');
+(4, 1, 5, 'reading'),
+(5, 1, 4, 'Reading');
 
 -- --------------------------------------------------------
 
@@ -164,7 +172,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `f_name`, `l_name`, `username`, `email`, `password`, `role`) VALUES
-(1, 'samadhi', 'kariyawasam', 'samadhi', 'samadhi@gmail.com', 'application', 'reader');
+(1, 'samadhi', 'kariyawasam', 'samadhi', 'samadhi@gmail.com', 'application', 'reader'),
+(2, 'Bhanuja', 'Sasanka', 'Bhanuja', 'bhanusasanka1999@gmail.com', 'application', 'Reader'),
+(3, 'Bha', 'Sas', 'Bha', 'bhanusasanka1999@gmail.com', 'Bha', 'Reader'),
+(4, 'Aruna', 'Vimukthi', 'Aruna', 'bhanusasanka1999@gmail.com', '1', 'Librarian');
 
 --
 -- Indexes for dumped tables
@@ -233,7 +244,7 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `carddetails`
 --
 ALTER TABLE `carddetails`
-  MODIFY `card_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `card_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `favourites`
@@ -251,19 +262,19 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `subs_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `subs_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `userbooks`
 --
 ALTER TABLE `userbooks`
-  MODIFY `userbook_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userbook_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
