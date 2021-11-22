@@ -21,5 +21,5 @@ $database_connection->addSubs(
 $database_connection->addCard(
     $user_id, $cardnum, $exp_month, $exp_year
 );
-header("Location: ../homepage.php?msg= Subscription success");
+header("Location: ../acc_view.php?msg= Subscription success");
     

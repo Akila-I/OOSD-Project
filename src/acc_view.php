@@ -27,7 +27,13 @@ $sub_date = $database_connection->getSubscriptionDate($_SESSION['userID']);
     </head>
     
     <body>
-    <?php require "top_menu_bar.php"; ?>
+    <?php require "top_menu_bar.php";
+        $msg="";
+        if(!empty($_REQUEST['msg'])){
+            $msg = $_REQUEST['msg'];
+            echo $msg;
+        }   
+    ?>
 
 <div class="container login-container">
             <div class="row">
