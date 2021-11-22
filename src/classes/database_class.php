@@ -332,7 +332,7 @@ class database{
 
         ));
     }
-    function checkUserID($user_id){
+    function checksubs_status($user_id){
         $sql = "SELECT * FROM subscriptions WHERE user_id = :ui";
 
         $statement = $this->pdo->prepare($sql);

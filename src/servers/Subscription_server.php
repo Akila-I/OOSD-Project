@@ -13,7 +13,7 @@ $subs_date = date("Y-m-d");
 $database_connection = new database();
 
 $user_id = $database_connection->getUserID($username);
-$check_user = $database_connection->checkUserID($user_id);
+$check_user = $database_connection->checksubs_status($user_id);
 
 if($check_user === 'Active'){
     $msg = "You have already Subscribed.";
