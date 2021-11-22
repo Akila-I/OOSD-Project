@@ -9,6 +9,9 @@ $database_connection = new database();
 $userID = $_SESSION['userID'];
 $user_data = $database_connection->getUserDetails($_SESSION['username']);
 
+$sub_status = $database_connection->getSubscriptionState($_SESSION['userID']);
+$sub_date = $database_connection->getSubscriptionDate($_SESSION['userID']);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,17 +57,19 @@ $user_data = $database_connection->getUserDetails($_SESSION['username']);
 
                         <div class="form-group">
                             <label for="subs_stt">Subscription Status</label>
-                            <input type="text" class="form-control" name="edit_username" value=<?php echo "Subs_Status";?> readonly/>
+                            <input type="text" class="form-control" name="edit_username" value=<?php echo $sub_status;?> readonly/>
                         </div>
 
                         <div class="form-group">
                             <label for="subs_date">Date of Subscription</label>
-                            <input type="text" class="form-control" name="edit_email" value=<?php echo "Subs_Date";?> readonly/>
+                            <input type="text" class="form-control" name="edit_email" value=<?php echo $sub_date;?> readonly/>
                         </div>
 
                         <div class="form-group">
                         <a href="acc_edit.php"><input type="button" value="Edit Details"></a>
-                        <a href=""><input type="button" value="Cancel subscription"></a>
+                        <?php if($sub_status == 'Active'): ?>
+                            <a href=""><input type="button" value="Cancel subscription"></a>
+                        <?php endif; ?>
                         <a href="Subscription.php"><input type="button" value="Subscribe"></a>
                         <a href="homepage.php"><input type="button" value="Back to Home"></a>
                         </div>
