@@ -67,9 +67,8 @@ $sub_date = $database_connection->getSubscriptionDate($_SESSION['userID']);
 
                         <div class="form-group">
                         <a href="acc_edit.php"><input type="button" value="Edit Details"></a>
-                        <a href="homepage.php"><input type="button" value="Back to Home"></a><br><br>
                         <?php if($sub_status == 'Active'): ?>
-                            <a href=""><input type="button" value="Cancel subscription"></a>
+                        <a href="servers/unsubscribe_server.php"><input type="button" value="Cancel subscription"></a>
                         <?php else: ?>
                         <a href="Subscription.php"><input type="button" value="Subscribe"></a>
                         <?php endif; ?>
