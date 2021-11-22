@@ -44,7 +44,7 @@
 
                     <div class="form-group">    
                         <label for="cardnum">Card Number</label>
-                        <input type="number" class="form-control" name="cardnum" maxlength="16" placeholder="Card Number (required)" required />
+                        <input type="text" class="form-control" name="cardnum" maxlength="16" placeholder="Card Number (required)" required />
                     </div>
 
                     <div class="form-group">    
