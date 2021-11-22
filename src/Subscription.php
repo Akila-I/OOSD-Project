@@ -27,25 +27,47 @@
                 echo $msg;
             }
         ?>
+        <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>User Details</h3>
+                    <form action="servers/Subscription_server.php" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username"  value=<?php echo $user_data['username'];?> readonly />
+                    </div>
 
-        <h1>Subscription Form </h1>
-        <div>
-            <h2>User Details</h2>
-            <form action="servers/Subscription_server.php" method="POST">
-                <label for="username">Username</label>
-                <input type="text" name="username"  value=<?php echo $user_data['username'];?> readonly /><br>
-                <label for="email">Email</label>
-                <input type="email" name="email" value=<?php echo $user_data['email'];?> readonly /><br>
-                <label for="cardnum">Card Number</label>
-                <input type="text" name="cardnum"  placeholder="Card Number (required)" required /><br>
-                <label for="exp">Expire Date</label>
-                <input type="text" name="exp_month" placeholder="mm"/> /
-                <input type="text" name="exp_year" placeholder="yyyy"/><br>
-                <label for="cvv">CVV</label>
-                <input type="text" name="cvv"  placeholder="CVV (required)" required /><br>    
-                <input type="submit" class="btnSubmit" value="Subscribe"/><br>
-                <a href="acc_view.php"><input type="button"value="Back" /></a>
-            </form>
-            <script src="" async defer></script>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" value=<?php echo $user_data['email'];?> readonly />
+                    </div>
+
+                    <div class="form-group">    
+                        <label for="cardnum">Card Number</label>
+                        <input type="text" class="form-control" name="cardnum"  placeholder="Card Number (required)" required />
+                    </div>
+
+                    <div class="form-group">    
+                        <label for="exp">Expire Date</label>
+                        <input type="text" class="form-control" name="exp_month" placeholder="mm"/>
+                        <input type="text" class="form-control" name="exp_year" placeholder="yyyy"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" name="cvv"  placeholder="CVV (required)" required /><br>    
+                    </div>
+
+                    <div class="form-group">    
+                        <input type="submit" class="btnSubmit" value="Subscribe"/>
+                        <a href="acc_view.php"><input type="button" value="Back" /></a>
+                    </div>
+                    
+                    </form>
+
+                </div>
+            </div>
+        </div>            
+                    <script src="" async defer></script>
     </body>
 </html>

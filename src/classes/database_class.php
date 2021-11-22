@@ -332,5 +332,17 @@ class database{
 
         ));
     }
+    function checkUserID($user_id){
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :ui";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':ui' => $user_id
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['subs_status'];
+    }
 
 }
