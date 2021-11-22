@@ -13,20 +13,13 @@ $subs_date = date("Y-m-d");
 $database_connection = new database();
 
 $user_id = $database_connection->getUserID($username);
-$check_user = $database_connection->checksubs_status($user_id);
 
-if($check_user === 'Active'){
-    $msg = "You have already Subscribed.";
-    header("Location: ../Subscription.php?msg=$msg");
-}
-else{
-    $database_connection->addSubs(
-        $user_id,$state,$subs_date
-    );
+$database_connection->addSubs(
+    $user_id,$state,$subs_date
+);
+
+$database_connection->addCard(
+    $user_id, $cardnum, $exp_month, $exp_year
+);
+header("Location: ../homepage.php?msg= Subscription success");
     
-    $database_connection->addCard(
-        $user_id, $cardnum, $exp_month, $exp_year
-    );
-    header("Location: ../homepage.php?msg= Subscription success");
-    
-}
