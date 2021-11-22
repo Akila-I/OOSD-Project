@@ -53,6 +53,24 @@ INSERT INTO `books` (`book_id`, `isbn`, `title`, `author`, `year`, `category`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `books_to_add`
+--
+
+CREATE TABLE `books_to_add` (
+  `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `donor_id` int(10) UNSIGNED NOT NULL,
+  `isbn` varchar(20) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `author` varchar(30) NOT NULL,
+  `year` int(11) DEFAULT NULL,
+  `category` varchar(30) DEFAULT NULL,
+  `book` varchar(255)  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ---------------------------------------------------------
+
+
+--
 -- Table structure for table `carddetails`
 --
 
