@@ -14,7 +14,6 @@ $database_connection = new database();
 
 $user_id = $database_connection->getUserID($username);
 
-
 $database_connection->addSubs(
     $user_id,$state,$subs_date
 );
