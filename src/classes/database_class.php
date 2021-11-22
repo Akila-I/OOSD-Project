@@ -52,7 +52,7 @@ class database{
         return $db_details;
     }
 
-    function getSubscriptionInfo($userID){
+    function getSubscriptionState($userID){
         $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
 
         $statement = $this->pdo->prepare($sql);
@@ -62,10 +62,31 @@ class database{
 
         $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
 
-        end($sub_details);
-        $last_key = key($sub_details);
+        if($sub_details == null){
+            return "Unsubscribed";
+        }
+        else{
+            return $sub_details['subs_status'];
+        }
+        
+    }
 
-        return $sub_details[$last_key];
+    function getSubscriptionDate($userID){
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':userid' => $userID
+        ));
+
+        $sub_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if($sub_details == null){
+            return "N/A";
+        }
+        else{
+            return $sub_details['subs_date'];
+        }
         
     }
     
