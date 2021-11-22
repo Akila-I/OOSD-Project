@@ -75,21 +75,41 @@ function get_list($list_type){
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title> <?php echo $list_name?> </title>  
+    <!-- <link rel="stylesheet" href="./styles/lists_styles.css"> -->
+    <title> <?php echo $list_name?> </title>
+    <style>
+    img{
+
+        width: 150px;
+        height: 200px;
+        /*align-self: auto;*/
+    }
+
+    table, th, td{
+      /* margin-left: 10; */
+      border: 1px solid black;
+    }
+    td{
+      padding: 10px;
+      border-top: white;
+      border-bottom: white;
+
+    }
+    th{
+      text-align: center;
+    }
+    </style>  
 </head>
 <body>
 <?php require "top_menu_bar.php"; ?>
-<div style="margin-left: 0;">
-  <input type="button" value="Back" onclick="history.back()">
-</div>
-<div class="container">
-    <div>
-      <ul>
+
+  <input style="margin-left: 0%;" type="button" value="Back to Home" onclick="history.back()">
+<div class="container" style="margin-left: 10%;">
+      <table>
+        <tr><th>Cover</th><th>Title</th><th>Author</th>
+      <th>Year</th><th>Genre</th><th>Options</th></tr>
       <?php
         foreach ($x as $key => $value) {
 
@@ -100,30 +120,30 @@ function get_list($list_type){
           $book_year = $book_details['year'];
           $book_catagory = $book_details['category'];
           $book_id = $book_details['book_id'];
+          echo '<tr style="height:200px;">';
+          echo ('<td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td>');
+          echo ("<td>$book_title</td>");
+          echo ("<td style='width:100px;'>$book_author</td>");
+          echo ("<td style='width:100px;'>$book_year</td>");
+          echo ("<td style='width:100px;'>$book_catagory</td>");
 
-          echo ('<li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/>');
-          echo ("<div class='title'>$book_title</div>");
-          echo ("<div class='author'>$book_author</div>");
-          echo ("<div class='year'>$book_year</div>");
-          echo ("<div class='category'>$book_catagory</div>");
-
-          echo ("<form method = 'POST'>");
+          echo ("<td style='width:100px;><form method = 'POST'>");
           echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
           echo ('<input type="submit" name="Open" value="open">');
           
           if ($type == 0) {
-            echo ('<input type="submit" name="AddtoFav" value="add to favourites">');
+            echo ('<br><br><input type="submit" name="AddtoFav" value="add to favourites">');
           }
     
-          echo ('</form></li>');
+          echo ('</form>');
+          echo '</td></tr>';
         }
         
       ?>
       
       
       
-      </ul>
-    </div>
+      </table>
  </div>
 
 

@@ -102,6 +102,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                         </table>
                         
                         </td>');
+                        break;
                     }
 
                     else{
@@ -138,6 +139,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                         </table>
                         
                         </td>');
+                        break;
                     }
                     else{
                     $book_id = $reading[$i];
@@ -173,6 +175,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                         </table>
                         
                         </td>');
+                        break;
                     }
                     else{
                     $book_id = $finished[$i];

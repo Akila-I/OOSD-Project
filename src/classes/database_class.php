@@ -17,7 +17,7 @@ class database{
 
     function validateUser($username, $password){
 
-        $sql = "SELECT password FROM Users WHERE username = :un";
+        $sql = "SELECT password FROM users WHERE username = :un";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -39,7 +39,7 @@ class database{
     }
     
     function getUserDetails($username){
-        $sql = "SELECT * FROM Users
+        $sql = "SELECT * FROM users
         WHERE username = :un";
 
         $statement = $this->pdo->prepare($sql);
@@ -91,7 +91,7 @@ class database{
     }
     
     function getUserID($username){
-        $sql = "SELECT * FROM Users WHERE username = :un";
+        $sql = "SELECT * FROM users WHERE username = :un";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -104,7 +104,7 @@ class database{
     }
 
     function usernameAvailability($username){
-        $sql = "SELECT password FROM Users WHERE username = :un";
+        $sql = "SELECT password FROM users WHERE username = :un";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -123,7 +123,7 @@ class database{
     }
 
     function addUser($fname,$lname,$username,$email,$password,$role){
-        $sql = "INSERT INTO Users(f_name,l_name,username,email,password,role) 
+        $sql = "INSERT INTO users(f_name,l_name,username,email,password,role) 
         VALUES (:fn, :ln, :un, :em, :pw, :r)";
 
         $statement = $this->pdo->prepare($sql);
@@ -138,9 +138,9 @@ class database{
     }
 
     function updateUser($user_id,$fname,$lname,$username,$email,$password){
-        /*$sql = "INSERT INTO Users(f_name,l_name,username,email,password,role) 
+        /*$sql = "INSERT INTO users(f_name,l_name,username,email,password,role) 
         VALUES (:fn, :ln, :un, :em, :pw, :r)";*/
-        $sql="UPDATE Users SET f_name = :fn, l_name = :ln, username = :un, email = :em, password = :pw WHERE user_id = :u_id";
+        $sql="UPDATE users SET f_name = :fn, l_name = :ln, username = :un, email = :em, password = :pw WHERE user_id = :u_id";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -155,7 +155,7 @@ class database{
 
     function getUserFavBooks($user_id){
         
-        $sql = "SELECT book_id FROM Favourites WHERE user_id = :u_id";
+        $sql = "SELECT book_id FROM favourites WHERE user_id = :u_id";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -172,7 +172,7 @@ class database{
 
     function addToFav($user_id, $book_id){
         
-        $sql1 = "SELECT fav_entry_id FROM Favourites WHERE user_id = :u_id AND book_id = :b_id";
+        $sql1 = "SELECT fav_entry_id FROM favourites WHERE user_id = :u_id AND book_id = :b_id";
 
         $statement1 = $this->pdo->prepare($sql1);
         $statement1->execute(array(
@@ -183,7 +183,7 @@ class database{
         $availability = $statement1->fetch(PDO::FETCH_ASSOC);
 
         if ($availability === false){
-            $sql2 = "INSERT INTO Favourites (user_id, book_id)
+            $sql2 = "INSERT INTO favourites (user_id, book_id)
             VALUES (:u_id, :b_id)";
         
             $statement2 = $this->pdo->prepare($sql2);
@@ -196,7 +196,7 @@ class database{
 
     function removeFromFav($user_id, $book_id){
     
-        $sql = "DELETE FROM Favourites
+        $sql = "DELETE FROM favourites
         WHERE user_id = :u_id AND book_id = :b_id";
     
         $statement = $this->pdo->prepare($sql);
@@ -208,7 +208,7 @@ class database{
 
     function getUserReadingBooks($user_id){
     
-        $sql = "SELECT book_id FROM UserBooks WHERE user_id = :u_id AND state = :stt";
+        $sql = "SELECT book_id FROM userbooks WHERE user_id = :u_id AND state = :stt";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -227,7 +227,7 @@ class database{
 
     function getUserFinishedBooks($user_id){
     
-        $sql = "SELECT book_id FROM UserBooks WHERE user_id = :u_id AND state = :stt";
+        $sql = "SELECT book_id FROM userbooks WHERE user_id = :u_id AND state = :stt";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -242,9 +242,9 @@ class database{
         return $arr;
     }
 
-    function addToUserBooks($user_id, $book_id, $state){
+    function addTouserbooks($user_id, $book_id, $state){
     
-        $sql1 = "SELECT userbook_id FROM UserBooks WHERE user_id = :u_id AND book_id = :b_id";
+        $sql1 = "SELECT userbook_id FROM userbooks WHERE user_id = :u_id AND book_id = :b_id";
 
         $statement1 = $this->pdo->prepare($sql1);
         $statement1->execute(array(
@@ -255,7 +255,7 @@ class database{
         $availability = $statement1->fetch(PDO::FETCH_ASSOC);
 
         if ($availability === false){
-            $sql2 = "INSERT INTO UserBooks (user_id, book_id, state)
+            $sql2 = "INSERT INTO userbooks (user_id, book_id, state)
             VALUES (:u_id, :b_id, :stt)";
         
             $statement2 = $this->pdo->prepare($sql2);
@@ -267,7 +267,7 @@ class database{
         }
         else if($availability['state'] !== $state){
 
-            $sql3 = "UPDATE UserBooks SET state = :stt 
+            $sql3 = "UPDATE userbooks SET state = :stt 
             WHERE user_id = :u_id AND book_id = :b_id";
 
             $statement3 = $this->pdo->prepare($sql3);
@@ -281,7 +281,7 @@ class database{
 
     function getBookDetails($book_id){
 
-        $sql = "SELECT * FROM Books WHERE book_id = :b_id";
+        $sql = "SELECT * FROM books WHERE book_id = :b_id";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -321,7 +321,7 @@ class database{
     }
 
     function getAllBooks(){    
-        $sql = "SELECT book_id FROM Books";
+        $sql = "SELECT book_id FROM books";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute();
@@ -367,13 +367,12 @@ class database{
     }
 
     function unsubscribe($user_id){
-        $sql = "UPDATE subscriptions SET subs_status = :stt
+        $sql = "DELETE FROM subscriptions 
         WHERE user_id = :u_id";
     
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
-            ':u_id' => $user_id,
-            ':stt' => "Cancelled"
+            ':u_id' => $user_id
         ));
     }
 }
