@@ -44,7 +44,7 @@
 
                     <div class="form-group">    
                         <label for="cardnum">Card Number</label>
-                        <input type="text" class="form-control" name="cardnum"  placeholder="Card Number (required)" required />
+                        <input type="number" class="form-control" name="cardnum" maxlength="16" placeholder="Card Number (required)" required />
                     </div>
 
                     <div class="form-group">    
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="cvv">CVV</label>
-                        <input type="text" class="form-control" name="cvv"  placeholder="CVV (required)" required /><br>    
+                        <input type="text" class="form-control" name="cvv" maxlength="3" placeholder="CVV (required)" required /><br>    
                     </div>
 
                     <div class="form-group">    
