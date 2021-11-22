@@ -61,12 +61,13 @@ if (isset($_POST['Donate']))
 
             <div class="form-group">
                 <label for="book">Book :</label>  
-                <input type="text" class="form-control" name="book"  placeholder="book-temp"  required />
+                <input type="file" class="form-control" name="book"  placeholder="book-temp"  required />
             </div>
 
             <input type="hidden" name="donor" value= <?php echo $user?> >
 
             <input type="submit" name="Donate" value="donate">
+            <input type="button" value="Back" onclick="history.back()">
 
     </form>
 
