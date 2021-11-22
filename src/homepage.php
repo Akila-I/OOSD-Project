@@ -28,6 +28,12 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
         font-size: 15px;
     }
 
+    td{
+        padding-left: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+    }
+
     img{
 
         width: 200px;
@@ -58,49 +64,56 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 
         <div class="homeLists">
             <hr>
-        <h6>All Books</h6>
-        <a href="lists.php?type=0"><label for="AllBooks">See All</label></a>
+        <h4>All Books</h4>
+        <a href="lists.php?type=0"><label for="AllBooks" style="font-size: 20px;">See All</label></a>
         <table><tr>
             <?php
-            for($i = 0; $i<3; $i++){
+            for($i = 0; $i<5; $i++){
                 $book_id = $all[$i];
                 $book_details = $database_connection->getBookDetails($book_id);
                 echo ('<td>
-                <ul style="list-style-type:none">
-                <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
-                <li>'.$book_details['title'].'</li>
-                </ul>
+                
+                <table style="text-align: center; width: 200px;">
+                <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
+                <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                </table>
+                
                 </td>');
             }
             ?>
             </tr></table>
             
         </div>
-        
+
         <div class="homeLists">
             <hr>
-            <h6>Your Favourites...</h6>
-            <a href="lists.php?type=3"><label for="Favs">See All</label></a>
+            <h4>Your Favourites...</h4>
+            <a href="lists.php?type=3"><label for="Favs" style="font-size: 20px;">See All</label></a>
             <table><tr>
                 <?php
-                for($i = 0; $i<3; $i++){
+                for($i = 0; $i<5; $i++){
                     
                     if(sizeof($fav)<=$i){
                         echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
-                    <li>Read More with us</li>
-                    </ul>
-                    </td>');
+                
+                        <table style="text-align: center; width: 200px;">
+                        <tr><td><img src="../images/alt.png" alt="x" align ="left"/></td></tr>
+                        <tr style="height: 50px;"><td>Read More with us</td></tr>
+                        </table>
+                        
+                        </td>');
                     }
+
                     else{
                     $book_id = $fav[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
-                    <li>'.$book_details['title'].'</li>
-                    </ul>
+                
+                    <table style="text-align: center; width: 200px;">
+                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    </table>
+                    
                     </td>');
                     }
                 }
@@ -111,27 +124,31 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 
         <div class="homeLists">
             <hr>
-            <h6>What you were reading...</h6>
-            <a href="lists.php?type=2"><label for="Readings">See All</label></a>
+            <h4>What you were reading...</h4>
+            <a href="lists.php?type=2"><label for="Readings" style="font-size: 20px;">See All</label></a>
             <table><tr>
                 <?php
-                for($i = 0; $i<3; $i++){
+                for($i = 0; $i<5; $i++){
                     if(sizeof($reading)<=$i){
                         echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
-                    <li>Read More with us</li>
-                    </ul>
-                    </td>');
+                
+                        <table style="text-align: center; width: 200px;">
+                        <tr><td><img src="../images/alt.png" alt="x" align ="left"/></td></tr>
+                        <tr style="height: 50px;"><td>Read More with us</td></tr>
+                        </table>
+                        
+                        </td>');
                     }
                     else{
                     $book_id = $reading[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
-                    <li>'.$book_details['title'].'</li>
-                    </ul>
+                
+                    <table style="text-align: center; width: 200px;">
+                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    </table>
+                    
                     </td>');
                     }
                 }
@@ -142,27 +159,31 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
 
         <div class="homeLists">
             <hr>
-            <h6>What you have finished...</h6>
-            <a href="lists.php?type=1"><label for="Finished">See All</label></a>
+            <h4>What you have finished...</h4>
+            <a href="lists.php?type=1"><label for="Finished" style="font-size: 20px;">See All</label></a>
             <table><tr>
                 <?php
-                for($i = 0; $i<3; $i++){
+                for($i = 0; $i<5; $i++){
                     if(sizeof($finished)<=$i){
                         echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/alt.png" alt="x" align ="left"/></li><br>
-                    <li>Read More with us</li>
-                    </ul>
-                    </td>');
+                
+                        <table style="text-align: center; width: 200px;">
+                        <tr><td><img src="../images/alt.png" alt="x" align ="left"/></td></tr>
+                        <tr style="height: 50px;"><td>Read More with us</td></tr>
+                        </table>
+                        
+                        </td>');
                     }
                     else{
                     $book_id = $finished[$i];
                     $book_details = $database_connection->getBookDetails($book_id);
                     echo ('<td>
-                    <ul style="list-style-type:none">
-                    <li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></li><br>
-                    <li>'.$book_details['title'].'</li>
-                    </ul>
+                
+                    <table style="text-align: center; width: 200px;">
+                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    </table>
+                    
                     </td>');
                     }
                 }
@@ -172,7 +193,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
         </div>
           
         <!-- <a href=""><img src="f1.png" width="100" height="100"> </a>   --> <!-- Account -->
-        <a href="add_book.php"> Donate a Book </a> <!-- Buy -->
+        <a href="add_book.php"> <button>Donate a Book</button></a> <!-- Buy -->
     </div>
     </body>
 </html>
