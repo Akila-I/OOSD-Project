@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__."/classes/database_class.php";
-
 session_start();
 $user = $_SESSION['userID'];
 
@@ -25,9 +24,15 @@ if (isset($_POST['Donate']))
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Donate</title>
+    <link rel="stylesheet" href="./styles/lists_styles.css">
+    <title>Donate a Book</title>
 </head>
 <body>
+<?php require "top_menu_bar.php";?>
+    <div class="container login-container">
+    <div class="row">
+    <div class="col-md-6 login-form-1">
+    
     <h3>Donate a Book</h3>
     <div class="container">
         
@@ -71,6 +76,9 @@ if (isset($_POST['Donate']))
 
     </form>
 
+    </div>
+    </div>
+    </div>
     </div>
 </body>
 </html>

@@ -21,7 +21,7 @@
 <div class="topnav">
     <a href="servers/logout_server.php">Logout</a>
     <a href="acc_view.php">My Profile</a>
-    <a href="#contact">Notifications</a>
+    <a href="add_book.php">Donate a Book</a>
     <a href="homepage.php">Home</a>
 
 </div>

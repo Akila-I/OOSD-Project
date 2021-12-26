@@ -39,6 +39,9 @@ if( isset($_POST)){
   elseif( isset($_POST['AddtoFav'])){
       $database_connection->addToFav($user, $book_id);
   }
+  elseif( isset($_POST['RemoveFromFav'])){
+    $database_connection->removeFromFav($user, $book_id);
+}
 
 }
         
@@ -155,6 +158,10 @@ require "search_button.php";
             if ($type == 0) {
               echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
             }
+
+            if ($type == 3) {
+              echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
+            }         
 
       
             echo ('</form>');

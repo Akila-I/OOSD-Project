@@ -61,7 +61,7 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
     <?php require "top_menu_bar.php"; 
     require "search_button.php";
     ?>
-    
+
     <div  class="col-md-6 login-form-1">
         <h1>Virtual Lobby</h1> 
 
@@ -201,9 +201,6 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                 </tr></table>
                
         </div>
-          
-        <!-- <a href=""><img src="f1.png" width="100" height="100"> </a>   --> <!-- Account -->
-        <a href="add_book.php"> <button>Donate a Book</button></a> <!-- Buy -->
     </div>
     </body>
 </html>

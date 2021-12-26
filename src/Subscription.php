@@ -17,6 +17,7 @@
                 header("Location: index.php?msg=Please Login First");
             }
             require "classes/database_class.php";
+            require "top_menu_bar.php"; 
 
             $database_connection = new database();
 
