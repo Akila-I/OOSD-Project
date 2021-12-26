@@ -1,5 +1,4 @@
-body{
-    /*display: flex; */
+/* body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
@@ -21,32 +20,59 @@ li{
     border: black;
 }
 
-p{
-    padding-left: 10px ;
-    padding-right: 10px;
-    color: crimson;
-    width: 75%;
-    text-align:  center;
-}
-
 div{
-
     padding-left: 10px ;
     padding-right: 10px;
     color: crimson;
-    width: 75%;
     text-align:  center;
 
-}*/
+}
 
 img{
-
-    width: 20px;
-    height: 100%;
-    /*align-self: auto;*/
-
+    text-align: left;
+    width: 150px;
+    height: 200px;
 }
+
 .container{
 
     height: 100%;
+} */
+
+img{
+    width: 150px;
+    height: 200px;
 }
+
+ul{
+    list-style-type: none;
+}
+
+div.entry{
+    width: 80%;
+    display: inline-block;
+}
+div.image{
+    float: left;
+    display: inline-block;
+    margin-top: 20px;
+}
+div.buttons{
+    float:inline-end;
+    display: inline-block;
+    margin-top: 75px;
+    margin-right: 0%;
+}
+
+div.details{
+    margin: 20px;
+    display: inline-block;
+    padding-top: 50px;
+    padding-left: 50px;
+
+}
+
+/* div.details label{
+    margin: 30px;
+    display: list-item;
+} */

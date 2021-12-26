@@ -4,6 +4,20 @@ session_start();
 if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }
+
+if(isset($_SESSION['search'])){
+  if($_SESSION['search'] == 'empty'){
+      echo("<script>alert('Empty Search!');</script>");
+      $_SESSION['search'] = 'reset';
+  }
+
+  if($_SESSION['search'] == 'no-result'){
+      echo("<script>alert('No Result Found!');</script>");
+      $_SESSION['search'] = 'reset';
+  }
+}
+
+
 $user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
@@ -60,6 +74,29 @@ function get_list($list_type){
     $list_name = "Favourites";
     $book_list = $database_connection->getUserFavBooks($user);
   }
+
+  //search results list
+  elseif($list_type === 4){
+
+    $previous = "javascript:history.go(-1)";
+    if(isset($_SERVER['HTTP_REFERER'])) {
+        $previous = $_SERVER['HTTP_REFERER'];
+    }
+
+    if($_GET['search'] == null){
+      $_SESSION['search'] = 'empty';
+      //return to previous page
+      header("Location: $previous");
+    }
+
+    $list_name = "Search Results";
+    $book_list = $database_connection->searchBook($_GET['search']);
+    if($book_list == null){
+      $_SESSION['search'] = 'no-result';
+      //return to previous page
+      header("Location: $previous");           
+    }
+  }
   return $book_list;
 
 }
@@ -74,21 +111,19 @@ function get_list($list_type){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
     <title> <?php echo $list_name?> </title>  
 </head>
 <body>
-<?php require "top_menu_bar.php"; ?>
+<?php require "top_menu_bar.php";
+require "search_button.php";
+?>
 <div style="margin-left: 0;">
   <input type="button" value="Back" onclick="history.back()">
 </div>
 <div class="container">
-    <div>
       <ul>
       <?php
         foreach ($x as $key => $value) {
@@ -101,29 +136,35 @@ function get_list($list_type){
           $book_catagory = $book_details['category'];
           $book_id = $book_details['book_id'];
 
-          echo ('<li><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/>');
-          echo ("<div class='title'>$book_title</div>");
-          echo ("<div class='author'>$book_author</div>");
-          echo ("<div class='year'>$book_year</div>");
-          echo ("<div class='category'>$book_catagory</div>");
+          echo("<li><div class='entry'>");
+          echo('<div class="image"><img src="../images/'.$book_id.'.jpg" alt="Book Cover"></div>');
 
-          echo ("<form method = 'POST'>");
-          echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
-          echo ('<input type="submit" name="Open" value="open">');
+          echo('<div class="details">');
+            echo("<label for='title'>Title : $book_title</label><br>");
+            echo("<label for='author'>Author : $book_author</label><br>");
+            echo("<label for='year'>Year : $book_year</label><br>");
+            echo("<label for='catrgory'>Category : $book_catagory</label><br>");
+          echo("</div>");
           
-          if ($type == 0) {
-            echo ('<input type="submit" name="AddtoFav" value="add to favourites">');
-          }
-    
-          echo ('</form></li>');
+          echo("<div class='buttons'>");
+
+            echo ("<form method = 'POST'>");
+            echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
+            echo ('<input type="submit" name="Open" value="Open"><br><br>');
+            
+            if ($type == 0) {
+              echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
+            }
+
+      
+            echo ('</form>');
+              
+          echo('</div></div></li><hr>');
         }
         
       ?>
-      
-      
-      
+
       </ul>
-    </div>
  </div>
 
 

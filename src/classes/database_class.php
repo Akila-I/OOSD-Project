@@ -375,4 +375,19 @@ class database{
             ':u_id' => $user_id
         ));
     }
+
+    function searchBook($name){
+        $sql = "SELECT book_id FROM books WHERE title LIKE :search";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':search' => '%'.$name.'%'
+        ));
+        $arr = array();
+    
+        while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_readings['book_id']);
+        }
+        return $arr;
+    }
 }

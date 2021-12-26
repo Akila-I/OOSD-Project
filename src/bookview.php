@@ -3,6 +3,19 @@ session_start();
 if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
+
+if(isset($_SESSION['search'])){
+    if($_SESSION['search'] == 'empty'){
+        echo("<script>alert('Empty Search!');</script>");
+        $_SESSION['search'] = 'reset';
+    }
+
+    if($_SESSION['search'] == 'no-result'){
+        echo("<script>alert('No Result Found!');</script>");
+        $_SESSION['search'] = 'reset';
+    }
+}
+
 $bookID = $_GET['id'];
 $_SESSION['bookID'] = $bookID;
 ?>
@@ -25,7 +38,10 @@ $_SESSION['bookID'] = $bookID;
         </style>
     </head>
     <body>
-    <?php require "top_menu_bar.php"; ?>
+    <?php require "top_menu_bar.php";
+    require "search_button.php";
+    ?>
+
         <div style="margin-left: 5%;">
             <form action="servers/bookview_server.php" method="post">
             <input type="button" value="Back" onclick="history.back()">
