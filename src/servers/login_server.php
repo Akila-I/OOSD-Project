@@ -11,6 +11,7 @@ $validation_msg = $database_connection->validateUser($login_username,$login_pasw
 if($validation_msg === true){
     $_SESSION['username'] = $login_username;
     $_SESSION['userID'] = $database_connection->getUserID($login_username);
+    $_SESSION['role'] = $database_connection->getUserRole($login_username);
     header("Location: ../homepage.php");
 }
 else{

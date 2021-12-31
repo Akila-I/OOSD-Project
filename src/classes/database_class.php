@@ -103,6 +103,19 @@ class database{
         return $db_details['user_id'];
     }
 
+    function getUserRole($username){
+        $sql = "SELECT * FROM users WHERE username = :un";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':un' => $username
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['role'];
+    }
+
     function usernameAvailability($username){
         $sql = "SELECT password FROM users WHERE username = :un";
 
@@ -335,10 +348,10 @@ class database{
         return $arr;
     }
 
-    function donateABook($donor_id, $isbn, $title, $author, $year, $catagory, $book)
+    function donateABook($donor_id, $isbn, $title, $author, $year, $catagory)
     {
-        $sql = 'INSERT INTO books_to_add(donor_id,isbn,title,author,year,category,book)
-                VALUES (:di, :isbn, :ti, :au, :yr, :ctgy, :bk)';
+        $sql = 'INSERT INTO books_to_add(donor_id,isbn,title,author,year,category)
+                VALUES (:di, :isbn, :ti, :au, :yr, :ctgy)';
         
         $statement = $this->pdo->prepare($sql);
         $statement->execute( array(
@@ -348,11 +361,47 @@ class database{
             ':ti' => $title,
             ':au' => $author,
             ':yr' => $year,
-            ':ctgy' => $catagory,
-            ':bk' => $book
+            ':ctgy' => $catagory
 
         ));
     }
+
+    function AddNewBook($isbn, $title, $author, $year, $catagory)
+    {
+        $sql = 'INSERT INTO books(isbn,title,author,year,category)
+                VALUES (:di, :isbn, :ti, :au, :yr, :ctgy)';
+        
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute( array(
+
+            ':isbn' => $isbn,
+            ':ti' => $title,
+            ':au' => $author,
+            ':yr' => $year,
+            ':ctgy' => $catagory
+
+        ));
+    }
+
+    function requestBook($request_by, $isbn, $title, $author, $year, $catagory)
+    {
+
+        $sql = "INSERT INTO requests(request_by,isbn,title,author,year,category)
+                VALUES (:ri, :isbn, :ti, :au, :yr, :ctgy)";
+        
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute( array(
+
+            ':ri' => $request_by,
+            ':isbn' => $isbn,
+            ':ti' => $title,
+            ':au' => $author,
+            ':yr' => $year,
+            ':ctgy' => $catagory
+
+        ));
+    }
+
     function checksubs_status($user_id){
         $sql = "SELECT * FROM subscriptions WHERE user_id = :ui";
 

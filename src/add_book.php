@@ -3,12 +3,60 @@ require_once __DIR__."/classes/database_class.php";
 session_start();
 $user = $_SESSION['userID'];
 
+$database_connection = new database();
 if (isset($_POST['Donate'])) 
 {
-    //print_r($_POST);
-    $database_connection = new database();
-    $database_connection->donateABook($_POST['donor'], $_POST['book_isbn'],$_POST['book_title'], 
-                                      $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory'], $_POST['book']);
+    if($_SESSION['role'] == 'Libraarian'){
+        if ($_FILES['book']['type'] == "application/pdf") {
+            $source_file = $_FILES['book']['tmp_name'];
+            $dest_file = "../books/".$_FILES['book']['name'];
+
+            if (file_exists($dest_file)) {
+                echo("<script>alert('This book is already available in the library.');</script>");
+            }
+            else {
+                move_uploaded_file( $source_file, $dest_file )
+                or die ("Error!!");
+                if($_FILES['book']['error'] == 0) {
+                    $database_connection->AddNewBook($_POST['book_isbn'],$_POST['book_title'], 
+                                            $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);
+                    echo("<script>alert('Book is added to the library.');</script>");
+                }
+            }
+        }
+        else {
+            if ( $_FILES['book']['type'] != "application/pdf") {
+                echo("<script>alert('Only upload books in PDF format');</script>");
+            }
+        }
+    }
+
+
+    else{
+        if ($_FILES['book']['type'] == "application/pdf") {
+            $source_file = $_FILES['book']['tmp_name'];
+            $dest_file = "../books/donated/".$_FILES['book']['name'];
+
+            if (file_exists($dest_file)) {
+                echo("<script>alert('Someone has already donated this book.');</script>");
+            }
+            else {
+                move_uploaded_file( $source_file, $dest_file )
+                or die ("Error!!");
+                if($_FILES['book']['error'] == 0) {
+                    $database_connection->donateABook($_POST['donor'], $_POST['book_isbn'],$_POST['book_title'], 
+                                            $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);
+                    echo("<script>alert('Your donation was sent for approval.');</script>");
+                }
+            }
+        }
+        else {
+            if ( $_FILES['book']['type'] != "application/pdf") {
+                echo("<script>alert('Only upload books in PDF format');</script>");
+            }
+        }
+    }
+
 }
 
 ?>
@@ -33,35 +81,35 @@ if (isset($_POST['Donate']))
     <div class="row">
     <div class="col-md-6 login-form-1">
     
-    <h3>Donate a Book</h3>
+    <h3><?php echo ($_SESSION['role'] === 'Reader') ? "Donate" : "Add"; ?> a Book</h3>
     <div class="container">
         
-    <form action="" method="post">
+    <form action="add_book.php" method="post" enctype="multipart/form-data">
         
 
             <div class="form-group">
                 <label for="book_title">Title :</label>
-                <input type="text" class="form-control" name="book_title" placeholder="Book Title"  required/>
+                <input type="text" class="form-control" name="book_title" placeholder="Book Title" required />
             </div>
 
             <div class="form-group">
                 <label for="book_author">Author :</label>
-                <input type="text" class="form-control" name="book_author" placeholder="Author"  required/>
+                <input type="text" class="form-control" name="book_author" placeholder="Author" required />
             </div>
 
             <div class="form-group">
                 <label for="book_year">Year :</label>
-                <input type="integer" class="form-control" name="book_year" placeholder="Year"  required/>
+                <input type="integer" class="form-control" name="book_year" placeholder="Year" required />
             </div>
 
             <div class="form-group">
                 <label for="book_isbn">ISBN :</label>          
-                <input type="text" class="form-control" name="book_isbn" placeholder="ISBN"  required/>
+                <input type="text" class="form-control" name="book_isbn" placeholder="ISBN" required />
             </div>
 
             <div class="form-group">
                 <label for="book_catagory">catagory :</label>          
-                <input type="text" class="form-control" name="book_catagory"  placeholder="catagory"  required />
+                <input type="text" class="form-control" name="book_catagory"  placeholder="catagory" required  />
             </div>
 
             <div class="form-group">
@@ -71,7 +119,7 @@ if (isset($_POST['Donate']))
 
             <input type="hidden" name="donor" value= <?php echo $user?> >
 
-            <input type="submit" name="Donate" value="donate">
+            <input type="submit" name="Donate" value=<?php echo ($_SESSION['role'] === 'Reader') ? "Donate" : "Add"; ?>>
             <input type="button" value="Back" onclick="history.back()">
 
     </form>
