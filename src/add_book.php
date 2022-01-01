@@ -6,10 +6,10 @@ $user = $_SESSION['userID'];
 $database_connection = new database();
 if (isset($_POST['Donate'])) 
 {
-    if($_SESSION['role'] == 'Libraarian'){
+    if($_SESSION['role'] == 'Librarian'){
         if ($_FILES['book']['type'] == "application/pdf") {
             $source_file = $_FILES['book']['tmp_name'];
-            $dest_file = "../books/".$_FILES['book']['name'];
+            $dest_file = "../books/".$_POST['book_title'];
 
             if (file_exists($dest_file)) {
                 echo("<script>alert('This book is already available in the library.');</script>");
@@ -18,9 +18,12 @@ if (isset($_POST['Donate']))
                 move_uploaded_file( $source_file, $dest_file )
                 or die ("Error!!");
                 if($_FILES['book']['error'] == 0) {
-                    $database_connection->AddNewBook($_POST['book_isbn'],$_POST['book_title'], 
+                    $id = $database_connection->AddNewBook($_POST['book_isbn'],$_POST['book_title'], 
                                             $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);
                     echo("<script>alert('Book is added to the library.');</script>");
+                    $source = "../books/".$_POST['book_title'];
+                    $destination = "../books/".$id.".pdf";
+                    rename($source, $destination);
                 }
             }
         }
@@ -32,10 +35,10 @@ if (isset($_POST['Donate']))
     }
 
 
-    else{
+    elseif($_SESSION['role'] == 'Reader'){
         if ($_FILES['book']['type'] == "application/pdf") {
             $source_file = $_FILES['book']['tmp_name'];
-            $dest_file = "../books/donated/".$_FILES['book']['name'];
+            $dest_file = "../books/donated/".$_POST['book_title']."pdf";
 
             if (file_exists($dest_file)) {
                 echo("<script>alert('Someone has already donated this book.');</script>");
@@ -83,7 +86,7 @@ if (isset($_POST['Donate']))
     
     <h3><?php echo ($_SESSION['role'] === 'Reader') ? "Donate" : "Add"; ?> a Book</h3>
     <div class="container">
-        
+        <br><br><br>
     <form action="add_book.php" method="post" enctype="multipart/form-data">
         
 

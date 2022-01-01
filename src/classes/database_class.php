@@ -103,6 +103,19 @@ class database{
         return $db_details['user_id'];
     }
 
+    function getUserName($userID){
+        $sql = "SELECT * FROM users WHERE user_id = :u_id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $userID
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $db_details['username'];
+    }
+
     function getUserRole($username){
         $sql = "SELECT * FROM users WHERE username = :un";
 
@@ -305,6 +318,19 @@ class database{
         return $db_details;     //formatting to JSONs?
     }
 
+    function getDonationDetails($book_id){
+
+        $sql = "SELECT * FROM books_to_add WHERE book_id = :b_id";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':b_id' => $book_id
+        ));
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+    
+        return $db_details;     //formatting to JSONs?
+    }
+
     function addSubs($user_id, $state, $subs_date){
     
         $sql = "INSERT INTO subscriptions (user_id, subs_status, subs_date)
@@ -348,6 +374,21 @@ class database{
         return $arr;
     }
 
+    function getDonations(){    
+        $sql = "SELECT book_id FROM books_to_add";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+            
+        $arr = array();
+    
+        while( $db_books = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$db_books['book_id']);
+        }
+    
+        return $arr;
+    }
+
     function donateABook($donor_id, $isbn, $title, $author, $year, $catagory)
     {
         $sql = 'INSERT INTO books_to_add(donor_id,isbn,title,author,year,category)
@@ -368,8 +409,8 @@ class database{
 
     function AddNewBook($isbn, $title, $author, $year, $catagory)
     {
-        $sql = 'INSERT INTO books(isbn,title,author,year,category)
-                VALUES (:di, :isbn, :ti, :au, :yr, :ctgy)';
+        $sql = 'INSERT INTO books (isbn,title,author,year,category)
+                VALUES (:isbn, :ti, :au, :yr, :ctgy)';
         
         $statement = $this->pdo->prepare($sql);
         $statement->execute( array(
@@ -381,6 +422,12 @@ class database{
             ':ctgy' => $catagory
 
         ));
+
+        $sql2  = 'SELECT * FROM books WHERE book_id=(SELECT MAX(book_id) FROM books)';
+        $statement2 = $this->pdo->prepare($sql2);
+        $statement2->execute();
+        $book_id = $statement2->fetch(PDO::FETCH_ASSOC);
+        return $book_id['book_id']; 
     }
 
     function requestBook($request_by, $isbn, $title, $author, $year, $catagory)
@@ -400,6 +447,21 @@ class database{
             ':ctgy' => $catagory
 
         ));
+    }
+
+    function getRequests(){
+        $sql = "SELECT * FROM requests";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+            
+        $arr = array();
+    
+        while( $reqs = $statement->fetch(PDO::FETCH_ASSOC)){
+            array_push($arr,$reqs);
+        }
+    
+        return $arr;
     }
 
     function checksubs_status($user_id){
