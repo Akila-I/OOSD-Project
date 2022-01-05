@@ -17,6 +17,7 @@ if(isset($_SESSION['search'])){
   }
 }
 
+$type = $_GET['type'];
 
 $user = $_SESSION['userID'];
 
@@ -28,20 +29,27 @@ if( isset($_POST)){
   if (isset($_POST['Book']))
   {
     $book_id = $_POST['Book'];
+    $book_t = $_POST['Title'];
   }
 
   if( isset($_POST['Open'])){
-
-    print_r($book_id);
+    if($type == 5){
+    header("Location: bookview.php?id=$book_t&d=1");
+    }
+    else{
     header("Location: bookview.php?id=$book_id");
-
+    }
   }
+
   elseif( isset($_POST['AddtoFav'])){
       $database_connection->addToFav($user, $book_id);
   }
   elseif( isset($_POST['RemoveFromFav'])){
     $database_connection->removeFromFav($user, $book_id);
-}
+  }
+  elseif( isset($_POST['Approve'])){
+    // $database_connection->ApproveDonation($book_id);
+  }
 
 }
         
@@ -100,10 +108,23 @@ function get_list($list_type){
       header("Location: $previous");           
     }
   }
+
+  //donations list
+  elseif($list_type === 5){
+    $list_name = "Donations";
+    $previous = "javascript:history.go(-1)";
+    $book_list = $database_connection->getDonations();
+
+    if($book_list == NULL){
+      echo("<script>alert('No Donations Available.');</script>");
+      header("Location: $previous");           
+    }
+
+  }
+
   return $book_list;
 
 }
-      $type = $_GET['type'];
       $list_name = "Library";
       $x = get_list((int)$type); 
      
@@ -117,7 +138,7 @@ function get_list($list_type){
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title> <?php echo $list_name?> </title>  
+    <title> <?php echo $list_name?> LIstsssssss </title>  
 </head>
 <body>
 <?php require "top_menu_bar.php";
@@ -130,9 +151,13 @@ require "search_button.php";
       <ul>
       <?php
         foreach ($x as $key => $value) {
-
+          if($type == 5){
+            $book_details = $database_connection->getDonationDetails($value);
+          }
+          else{
           $book_details = $database_connection->getBookDetails($value);
-         
+          }
+
           $book_title = $book_details['title'];
           $book_author = $book_details['author'];
           $book_year = $book_details['year'];
@@ -140,7 +165,9 @@ require "search_button.php";
           $book_id = $book_details['book_id'];
 
           echo("<li><div class='entry'>");
-          echo('<div class="image"><img src="../images/'.$book_id.'.jpg" alt="Book Cover"></div>');
+          echo('<div class="image"><img src="');
+          echo($list_type == 5)? "No Cover" : "../images/$book_id.jpg";
+          echo('" alt="Book Cover"></div>');
 
           echo('<div class="details">');
             echo("<label for='title'>Title : $book_title</label><br>");
@@ -153,6 +180,7 @@ require "search_button.php";
 
             echo ("<form method = 'POST'>");
             echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
+            echo ('<input type="hidden" name="Title" value="'.$book_title.'">');
             echo ('<input type="submit" name="Open" value="Open"><br><br>');
             
             if ($type == 0) {
@@ -161,7 +189,11 @@ require "search_button.php";
 
             if ($type == 3) {
               echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
-            }         
+            }
+            
+            if ($type == 5) {
+              echo ('<input type="submit" name="Approve" value="Approve">');
+            }
 
       
             echo ('</form>');

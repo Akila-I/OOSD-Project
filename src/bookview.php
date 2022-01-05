@@ -43,20 +43,20 @@ $_SESSION['bookID'] = $bookID;
     ?>
 
         <div style="margin-left: 5%;">
-            <form action="servers/bookview_server.php" method="post">
-            <input type="button" value="Back" onclick="history.back()">
-
-            <input type="submit" name="AddToFav" class="button" value="Add to Favourites" />
-            
-            <input type="submit" name="ReadLater" class="button" value="Read Later" />
-
-            <input type="submit" name="FinishReading" class="button" value="Finish Reading" />
-
-            </form>
+        <input type="button" value="Back" onclick="history.back()">
+        <?php
+        if($_GET['d'] != 1){
+            echo('<form action="servers/bookview_server.php" method="post">');
+            echo(' <input type="submit" name="AddToFav" class="button" value="Add to Favourites" />');
+            echo('<input type="submit" name="ReadLater" class="button" value="Read Later" />');
+            echo('<input type="submit" name="FinishReading" class="button" value="Finish Reading" />');
+            echo('</form>');
+        } 
+        ?>
 
         </div>
         <div id="scroller">
-            <iframe name="myiframe" id="myiframe" src="../books/<?php echo$bookID;?>.pdf"></iframe>
+            <iframe name="myiframe" id="myiframe" src=<?php echo($_GET['d'] == 1)? "../books/donated/$bookID.pdf" : "../books/$bookID.pdf";?>></iframe>
         </div>
     </body>
 </html>

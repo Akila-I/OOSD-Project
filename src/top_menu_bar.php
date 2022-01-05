@@ -32,8 +32,8 @@ $role = $_SESSION['role'];
             echo('<a href="add_book.php">Donate a Book</a>');
         }
         elseif($role === 'Librarian'){
-            echo('<a href="#">Requests</a>');
-            echo('<a href="#">Approve Donations</a>');
+            echo('<a href="req_list.php">Requests</a>');
+            echo('<a href="lists.php?type=5">Approve Donations</a>');
             echo('<a href="add_book.php">Add a Book</a>');
         }
     ?>

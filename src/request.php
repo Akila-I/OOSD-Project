@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__."/classes/database_class.php";
 session_start();
+session_start();
+if($_SESSION['userID']===null){
+  header("Location: index.php?msg=Please Login First");
+}
 $user = $_SESSION['userID'];
 
 if (isset($_POST['Request'])) 
@@ -46,7 +50,12 @@ if (isset($_POST['Request']))
     
     <h3>Request a Book</h3>
     <div class="container">
-        
+        <div>
+        <br><br>
+            Tell us what books you want to read in our Virtual Library. <br>
+            Only title of the book is required.
+        <br><br>
+        </div>
     <form action="" method="post">
         
 
