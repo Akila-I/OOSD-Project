@@ -79,9 +79,16 @@ class HeavyBook implements Book{
     function openBook($id)
     {
         
+    function loadPdf  ($id, $isDonation){
+        if($isDonation == true){
+            header("Location: ../bookview.php?id=$id&d=1");
+        }
+        else if($isDonation == false){
+            header("Location: ../bookview.php?id=$id");
+        }
     }
 
-   
+    }
 
 
 
