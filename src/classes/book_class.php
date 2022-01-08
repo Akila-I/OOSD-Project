@@ -1,8 +1,27 @@
 <?php
 interface Book {
 
+    function openBook($id);
     
 }
+
+abstract class BookDecorator{
+
+
+
+}
+
+class AddtoFavouritesButton extends BookDecorator{
+
+    
+
+}
+
+class RemoveFromFavouritesButton extends BookDecorator{
+
+}
+
+
 
 
 class HeavyBook implements Book{
@@ -11,24 +30,59 @@ class HeavyBook implements Book{
     private $title;
     private $author;
     private $year;
-    private $pdf;
+   // private $pdf;
     private $isbn;
+
+   
+
+    private function loadPdf($id){
+
+        header("Location: bookview.php?id=$id");
+
+        
+    }
 
 
     function __construct($id, $title, $author, $year, $isbn)
     {
-     $this->$id = $id;  
-     $this->$title = $title; 
-     $this->$author= $author; 
-     $this->$$year = $year; 
-     $this->$isbn = $isbn; 
+     $this->id = $id;  
+     $this->title = $title; 
+     $this->author= $author; 
+     $this->year = $year; 
+     $this->isbn = $isbn; 
+
+       // loadPdf($this->id);
 
     }
 
-    function loadPdf  ($id){
+    public function getID(){
+        return $this->id;
+    }
 
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function getAuthor(){
+        return $this->author;
+    }
+
+    public function getIsbn(){
+        return $this->isbn;
+    }
+
+    public function getYear(){
+        return $this->year;
+    }
+
+
+    function openBook($id)
+    {
         
     }
+
+   
+
 
 
 }
@@ -41,16 +95,47 @@ class ProxyBook implements Book{
     private $author;
     private $year;
     private $isbn;
+    private $catagory;
 
 
-    function __construct($id, $title, $author, $year, $isbn)
+    function __construct($id, $title, $author, $year, $isbn, $catagory)
     {
-     $this->$id = $id;  
-     $this->$title = $title; 
-     $this->$author= $author; 
-     $this->$$year = $year; 
-     $this->$isbn = $isbn; 
+     $this->id = $id;  
+     $this->title = $title; 
+     $this->author= $author; 
+     $this->year = $year; 
+     $this->isbn = $isbn; 
+     $this->catagory = $catagory;
 
+    }
+
+    public function getID(){
+        return $this->id;
+    }
+
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function getAuthor(){
+        return $this->author;
+    }
+
+    public function getIsbn(){
+        return $this->isbn;
+    }
+
+    public function getYear(){
+        return $this->year;
+    }
+
+    public function getCatagory(){
+        return $this->catagory;
+    }
+
+    function openBook($id)
+    {
+        
     }
     
 

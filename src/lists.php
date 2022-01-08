@@ -1,9 +1,20 @@
 <?php
-require_once __DIR__."/classes/database_class.php";
+//require_once __DIR__."/classes/user_class.php";
+require_once __DIR__."/classes/librarian_class.php";
+require_once __DIR__."/classes/book_class.php";
+
 session_start();
 if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }
+
+if ($_SESSION['role'] == 'Reader') {
+  $user = new User($_SESSION['userID']);
+}else{
+  $user = new librarian($_SESSION['userID']);
+}
+
+
 
 if(isset($_SESSION['search'])){
   if($_SESSION['search'] == 'empty'){
@@ -19,10 +30,10 @@ if(isset($_SESSION['search'])){
 
 $type = $_GET['type'];
 
-$user = $_SESSION['userID'];
+//$user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
-$database_connection = new database();
+//$database_connection = new database();
 
 if( isset($_POST)){
   
@@ -31,21 +42,23 @@ if( isset($_POST)){
     $book_id = $_POST['Book'];
     $book_t = $_POST['Title'];
   }
-
+//heavy book
   if( isset($_POST['Open'])){
     if($type == 5){
+    
     header("Location: bookview.php?id=$book_t&d=1");
     }
     else{
     header("Location: bookview.php?id=$book_id");
+   // new HeavyBook()
     }
   }
 
   elseif( isset($_POST['AddtoFav'])){
-      $database_connection->addToFav($user, $book_id);
+      $user->addToFavList( $book_id);
   }
   elseif( isset($_POST['RemoveFromFav'])){
-    $database_connection->removeFromFav($user, $book_id);
+    $user->removeFromFavList( $book_id);
   }
   elseif( isset($_POST['Approve'])){
     // $database_connection->ApproveDonation($book_id);
@@ -64,26 +77,27 @@ function get_list($list_type){
   //all list
   if($list_type === 0)
   {
-    $book_list = $database_connection->getAllBooks();
+   
+    $book_list = $user->viewBookList();
   }
   //finished list
   if($list_type === 1)
   {
     $list_name = "Finished Books";
-    $book_list = $database_connection->getUserFinishedBooks($user);
+    $book_list =$user->viewFinishedList();
   }
   //reading list
   elseif($list_type === 2){
 
     $list_name = "Reading Books";
-    $book_list = $database_connection->getUserReadingBooks($user);
+    $book_list = $user->viewReadingList();
   }
        
   //favourites list
   elseif($list_type === 3){
 
     $list_name = "Favourites";
-    $book_list = $database_connection->getUserFavBooks($user);
+    $book_list = $user->viewFavList();
   }
 
   //search results list
@@ -101,7 +115,7 @@ function get_list($list_type){
     }
 
     $list_name = "Search Results";
-    $book_list = $database_connection->searchBook($_GET['search']);
+    $book_list = $user->searchABook($_GET['search']);
     if($book_list == null){
       $_SESSION['search'] = 'no-result';
       //return to previous page
@@ -113,7 +127,7 @@ function get_list($list_type){
   elseif($list_type === 5){
     $list_name = "Donations";
     $previous = "javascript:history.go(-1)";
-    $book_list = $database_connection->getDonations();
+    $book_list = $user->viewDonations();
 
     if($book_list == NULL){
       echo("<script>alert('No Donations Available.');</script>");
@@ -128,6 +142,7 @@ function get_list($list_type){
       $list_name = "Library";
       $x = get_list((int)$type); 
      
+     
 ?>
 
 
@@ -138,7 +153,7 @@ function get_list($list_type){
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/lists_styles.css">
-    <title> <?php echo $list_name?> LIstsssssss </title>  
+    <title> <?php echo $list_name?>  </title>  
 </head>
 <body>
 <?php require "top_menu_bar.php";
@@ -150,27 +165,36 @@ require "search_button.php";
 <div class="container">
       <ul>
       <?php
+/*      
         foreach ($x as $key => $value) {
-          if($type == 5){
-            $book_details = $database_connection->getDonationDetails($value);
+          if($type == 5 && $_SESSION['role'] !== 'Reader'){
+            $book = $user->viewDonationDetails($value);
           }
           else{
-          $book_details = $database_connection->getBookDetails($value);
+          $book = $user->viewBookDetails($value);
           }
+//book class
+*/
+         
+          
 
-          $book_title = $book_details['title'];
-          $book_author = $book_details['author'];
-          $book_year = $book_details['year'];
-          $book_catagory = $book_details['category'];
-          $book_id = $book_details['book_id'];
+
+for ($i=0; $i < sizeof($x) ; $i++) { 
+    $book = $x[$i];
+
+    $book_title = $book->getTitle();
+    $book_author = $book->getAuthor();
+    $book_year = $book->getYear();
+    $book_catagory = $book->getCatagory();
+    $book_id = $book->getID();
 
           echo("<li><div class='entry'>");
           echo('<div class="image"><img src="');
-          echo($list_type == 5)? "No Cover" : "../images/$book_id.jpg";
+          echo($type == 5)? "No Cover" : "../images/$book_id.jpg";
           echo('" alt="Book Cover"></div>');
 
           echo('<div class="details">');
-            echo("<label for='title'>Title : $book_title</label><br>");
+            echo("<label for='title'>Title : $book_title.'</label><br>");
             echo("<label for='author'>Author : $book_author</label><br>");
             echo("<label for='year'>Year : $book_year</label><br>");
             echo("<label for='catrgory'>Category : $book_catagory</label><br>");

@@ -1,7 +1,8 @@
 <?php
 require "database_class.php";
+require "book_class.php";
 
-class user{
+class User{
     private $user_id;
     private $first_name;
     private $last_name;
@@ -12,11 +13,11 @@ class user{
 
     private $database_connection;
 
-    function __construct($username, $password)
+    function __construct($userid)
     {
         $this->database_connection = new database();
-        $this->username = $username;
-        $this->password = $password;
+        $this->user_id = $userid;
+       // $this->password = $password;
     }
 
     public function validate(){
@@ -39,26 +40,62 @@ class user{
 
     public function viewBookList(){
         $x = $this->database_connection->getAllBooks();
-        return $x;
+        $books_list = array();
+        for ($i=0; $i < sizeof($x); $i++) { 
+            array_push($books_list, $this->viewBookDetails($x[$i]));
+        }
+        return $books_list;
     } 
 
     public function viewFavList(){
         $x = $this->database_connection->getUserFavBooks($this->user_id);
-        return $x;
+        $books_list = array();
+        for ($i=0; $i < sizeof($x); $i++) { 
+            array_push($books_list, $this->viewBookDetails($x[$i]));
+        }
+        return $books_list;
     }
 
     public function viewFinishedList(){
         $x = $this->database_connection->getUserFinishedBooks($this->user_id);
-        return $x;
+        $books_list = array();
+        for ($i=0; $i < sizeof($x); $i++) { 
+            array_push($books_list, $this->viewBookDetails($x[$i]));
+        }
+        return $books_list;
     }
 
     public function viewReadingList(){
         $x = $this->database_connection->getUserReadingBooks($this->user_id);
-        return $x;
+        $books_list = array();
+        for ($i=0; $i < sizeof($x); $i++) { 
+            array_push($books_list, $this->viewBookDetails($x[$i]));
+        }
+        return $books_list;
     }
 
     public function addToFavList($book_id){
         $this->database_connection->addToFav($this->user_id, $book_id);
+    }
+
+    public function removeFromFavList($book_id){
+        $this->database_connection->removeFromFav($this->user_id, $book_id);
+    }
+
+    public function viewBookDetails($book_id){
+        $x = $this->database_connection->getBookDetails($book_id);
+        $book = new proxyBook($x['book_id'],$x['title'], $x['author'], $x['year'], $x['isbn'], $x['category']);
+        return $book;
+    }
+
+    public function searchABook($book){
+        $x = $this->database_connection->searchBook($book);
+        /*
+        $books_list = array();
+        for ($i=0; $i < sizeof($x); $i++) { 
+            array_push($books_list, $this->viewBookDetails($x[$i]));
+        } */
+        return $x;
     }
 
     public function markAsFinished($book_id){}

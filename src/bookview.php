@@ -48,8 +48,8 @@ $_SESSION['bookID'] = $bookID;
         if($_GET['d'] != 1){
             echo('<form action="servers/bookview_server.php" method="post">');
             echo(' <input type="submit" name="AddToFav" class="button" value="Add to Favourites" />');
-            echo('<input type="submit" name="ReadLater" class="button" value="Read Later" />');
-            echo('<input type="submit" name="FinishReading" class="button" value="Finish Reading" />');
+            echo('<input type="submit" name="ReadLater" class="button" value="Add to Reading List" />');
+            echo('<input type="submit" name="FinishReading" class="button" value="Add to Finished List" />');
             echo('</form>');
         } 
         ?>

@@ -1,12 +1,16 @@
 <?php
-require_once __DIR__."/classes/database_class.php";
-$database_connection = new database();
+//require_once __DIR__."/classes/database_class.php";
+require_once __DIR__."/classes/user_class.php";
+require_once __DIR__."/classes/book_class.php";
+//$database_connection = new database();
 
 session_start();
 if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
 
+//user 
+$user = new User($_SESSION['userID']);
 
 if(isset($_SESSION['search'])){
     if($_SESSION['search'] == 'empty'){
@@ -20,10 +24,12 @@ if(isset($_SESSION['search'])){
     }
 }
 
-$all = $database_connection->getAllBooks();
-$fav = $database_connection->getUserFavBooks($_SESSION['userID']);
-$reading = $database_connection->getUserReadingBooks($_SESSION['userID']);
-$finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
+
+$all = $user->viewBookList();
+$fav = $user->viewFavList();
+$reading = $user->viewReadingList();
+$finished = $user->viewFinishedList();
+
 
 ?>
 <!DOCTYPE html>
@@ -76,13 +82,14 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
         <table><tr>
             <?php
             for($i = 0; $i<5; $i++){
-                $book_id = $all[$i];
-                $book_details = $database_connection->getBookDetails($book_id);
+
+                $book = $all[$i];
+                
                 echo ('<td>
                 
                 <table style="text-align: center; width: 200px;">
-                <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
-                <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
+                <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
                 </table>
                 
                 </td>');
@@ -113,13 +120,12 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                     }
 
                     else{
-                    $book_id = $fav[$i];
-                    $book_details = $database_connection->getBookDetails($book_id);
+                    $book= $fav[$i];
                     echo ('<td>
                 
                     <table style="text-align: center; width: 200px;">
-                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');
@@ -149,13 +155,13 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                         break;
                     }
                     else{
-                    $book_id = $reading[$i];
-                    $book_details = $database_connection->getBookDetails($book_id);
+                   
+                    $book = $reading[$i];
                     echo ('<td>
                 
                     <table style="text-align: center; width: 200px;">
-                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');
@@ -185,13 +191,13 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
                         break;
                     }
                     else{
-                    $book_id = $finished[$i];
-                    $book_details = $database_connection->getBookDetails($book_id);
+                    $book = $finished[$i];
+                    
                     echo ('<td>
                 
                     <table style="text-align: center; width: 200px;">
-                    <tr><td><img src="../images/'.$book_id.'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book_id.'">'.$book_details['title'].'</a></td></tr>
+                    <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
+                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');
@@ -204,3 +210,5 @@ $finished = $database_connection->getUserFinishedBooks($_SESSION['userID']);
     </div>
     </body>
 </html>
+
+<!-- TODO : book class --> 
