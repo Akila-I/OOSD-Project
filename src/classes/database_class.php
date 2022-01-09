@@ -499,6 +499,7 @@ class database{
         while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
             array_push($arr,$db_readings['book_id']);
         }
+        
         return $arr;
     }
 }

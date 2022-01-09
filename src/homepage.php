@@ -38,7 +38,7 @@ $finished = $user->viewFinishedList();
     <meta charset="UTF-8">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/hompage.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Library - Home</title>  <!--button value -->
@@ -56,10 +56,21 @@ $finished = $user->viewFinishedList();
     img{
 
         width: 200px;
-        height: 300px;
-        /*align-self: auto;*/
-        
+        height: 300px; 
+        align-self: auto;
+/*
+        width: 150px;
+        height: 225px;
+*/     
     }
+
+    
+    label ,a{
+        color: #190061;
+    }
+
+    
+
     </style>
 </head>
 
@@ -69,7 +80,7 @@ $finished = $user->viewFinishedList();
     ?>
 
     <div  class="col-md-6 login-form-1">
-        <h1>Virtual Lobby</h1> 
+        <h1 style="color: #190061 ;">VIRTUAL LOBBY</h1> 
 
         <!-- <form>
             Search:<input type="text" value=""><br>

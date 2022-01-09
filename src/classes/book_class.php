@@ -5,7 +5,12 @@ interface Book {
     
 }
 
-abstract class BookDecorator{
+class BookDecorator{
+
+function showOpenButton(){
+
+    echo ('<input type="submit" name="Open" value="Open"><br><br>');
+}
 
 
 
@@ -13,12 +18,30 @@ abstract class BookDecorator{
 
 class AddtoFavouritesButton extends BookDecorator{
 
-    
+function showAddToFav(){
+
+    echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
+
+}
 
 }
 
 class RemoveFromFavouritesButton extends BookDecorator{
 
+function showRemoveFav(){
+
+    echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
+
+}
+
+}
+
+class ApproveButton extends BookDecorator{
+
+function showApprove(){
+
+    echo ('<input type="submit" name="Approve" value="Approve">');
+}
 }
 
 
@@ -35,13 +58,7 @@ class HeavyBook implements Book{
 
    
 
-    private function loadPdf($id){
-
-        header("Location: bookview.php?id=$id");
-
-        
-    }
-
+   
 
     function __construct($id, $title, $author, $year, $isbn)
     {

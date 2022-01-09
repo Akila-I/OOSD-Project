@@ -90,12 +90,12 @@ class User{
 
     public function searchABook($book){
         $x = $this->database_connection->searchBook($book);
-        /*
+        
         $books_list = array();
         for ($i=0; $i < sizeof($x); $i++) { 
             array_push($books_list, $this->viewBookDetails($x[$i]));
-        } */
-        return $x;
+        } 
+        return $books_list;
     }
 
     public function markAsFinished($book_id){}

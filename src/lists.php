@@ -165,19 +165,11 @@ require "search_button.php";
 <div class="container">
       <ul>
       <?php
-/*      
-        foreach ($x as $key => $value) {
-          if($type == 5 && $_SESSION['role'] !== 'Reader'){
-            $book = $user->viewDonationDetails($value);
-          }
-          else{
-          $book = $user->viewBookDetails($value);
-          }
-//book class
-*/
-         
-          
 
+$addtofav_button = new AddtoFavouritesButton();  
+$removefromfave_button = new RemoveFromFavouritesButton();      
+$open_button = new BookDecorator();
+$approve_button = new ApproveButton();
 
 for ($i=0; $i < sizeof($x) ; $i++) { 
     $book = $x[$i];
@@ -205,18 +197,19 @@ for ($i=0; $i < sizeof($x) ; $i++) {
             echo ("<form method = 'POST'>");
             echo ('<input type="hidden" name="Book" value="'.$book_id.'">');
             echo ('<input type="hidden" name="Title" value="'.$book_title.'">');
-            echo ('<input type="submit" name="Open" value="Open"><br><br>');
+           
+            $open_button->showOpenButton();
             
             if ($type == 0) {
-              echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
+              $addtofav_button->showAddToFav();
             }
 
             if ($type == 3) {
-              echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
+              $removefromfave_button->showRemoveFav();
             }
             
             if ($type == 5) {
-              echo ('<input type="submit" name="Approve" value="Approve">');
+              $approve_button->showApprove();
             }
 
       

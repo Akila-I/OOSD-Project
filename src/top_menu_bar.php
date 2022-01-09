@@ -6,7 +6,7 @@ $role = $_SESSION['role'];
 <style>
     /* Add a black background color to the top navigation */
     .topnav {
-    background-color: black;
+    background-color: #190061;
     overflow: hidden;
     
     }
