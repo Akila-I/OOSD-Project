@@ -5,7 +5,7 @@
     $book = $_SESSION['bookID'];
     unset($_SESSION['bookID']);
 
-    $database_connection = new database();
+    $database_connection = database::getInstance();
 
     if(array_key_exists('AddToFav', $_POST)) {
         $database_connection->addToFav($_SESSION['userID'],$book);

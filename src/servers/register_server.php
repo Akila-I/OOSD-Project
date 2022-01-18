@@ -10,7 +10,7 @@ $register_pasword_confirm=$_POST['register_pasword_confirm'];
 $register_role=$_POST['register_role'];
 
 
-$database_connection = new database();
+$database_connection = database::getInstance();
 $validation_msg = $database_connection->usernameAvailability($register_username);
 
 if($register_role === null){

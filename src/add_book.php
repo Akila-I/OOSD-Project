@@ -3,7 +3,7 @@ require_once __DIR__."/classes/database_class.php";
 session_start();
 $user = $_SESSION['userID'];
 
-$database_connection = new database();
+$database_connection = database::getInstance();
 if (isset($_POST['Donate'])) 
 {
     if($_SESSION['role'] == 'Librarian'){

@@ -1,48 +1,10 @@
 <?php
 interface Book {
 
-    function openBook($id);
+    //function openBook($id);
     
 }
 
-class BookDecorator{
-
-function showOpenButton(){
-
-    echo ('<input type="submit" name="Open" value="Open"><br><br>');
-}
-
-
-
-}
-
-class AddtoFavouritesButton extends BookDecorator{
-
-function showAddToFav(){
-
-    echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
-
-}
-
-}
-
-class RemoveFromFavouritesButton extends BookDecorator{
-
-function showRemoveFav(){
-
-    echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
-
-}
-
-}
-
-class ApproveButton extends BookDecorator{
-
-function showApprove(){
-
-    echo ('<input type="submit" name="Approve" value="Approve">');
-}
-}
 
 
 
@@ -53,22 +15,17 @@ class HeavyBook implements Book{
     private $title;
     private $author;
     private $year;
-   // private $pdf;
     private $isbn;
 
    
 
    
 
-    function __construct($id, $title, $author, $year, $isbn)
+    function __construct($id, $isDonation)
     {
-     $this->id = $id;  
-     $this->title = $title; 
-     $this->author= $author; 
-     $this->year = $year; 
-     $this->isbn = $isbn; 
-
-       // loadPdf($this->id);
+        $this->id = $id;  
+     
+        $this->loadPdf($id , $isDonation );
 
     }
 
@@ -93,19 +50,18 @@ class HeavyBook implements Book{
     }
 
 
-    function openBook($id)
-    {
+    
         
     function loadPdf  ($id, $isDonation){
         if($isDonation == true){
             header("Location: ../bookview.php?id=$id&d=1");
         }
         else if($isDonation == false){
-            header("Location: ../bookview.php?id=$id");
+            header("Location: ../bookview.php?id=$id&d=0");
         }
     }
 
-    }
+   
 
 
 
@@ -157,11 +113,49 @@ class ProxyBook implements Book{
         return $this->catagory;
     }
 
-    function openBook($id)
-    {
-        
-    }
     
 
 
 }
+
+
+
+class BookDecorator{
+
+    function showOpenButton(){
+    
+        echo ('<input type="submit" name="Open" value="Open"><br><br>');
+    }
+    
+    
+    
+    }
+    
+    class AddtoFavouritesButton extends BookDecorator{
+    
+    function showAddToFav(){
+    
+        echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
+    
+    }
+    
+    }
+    
+    class RemoveFromFavouritesButton extends BookDecorator{
+    
+    function showRemoveFav(){
+    
+        echo ('<input type="submit" name="RemoveFromFav" value="Remove From Favourites">');
+    
+    }
+    
+    }
+    
+    class ApproveButton extends BookDecorator{
+    
+    function showApprove(){
+    
+        echo ('<input type="submit" name="Approve" value="Approve">');
+    }
+    }
+    

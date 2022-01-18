@@ -33,7 +33,7 @@ $type = $_GET['type'];
 //$user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
-//$database_connection = new database();
+//$database_connection = database::getInstance();
 
 if( isset($_POST)){
   
@@ -44,12 +44,13 @@ if( isset($_POST)){
   }
 //heavy book
   if( isset($_POST['Open'])){
+
     if($type == 5){
     
-    header("Location: bookview.php?id=$book_t&d=1");
+    header("Location:  servers/open_book_server.php?id=$book_t&d=1");
     }
     else{
-    header("Location: bookview.php?id=$book_id");
+    header("Location: servers/open_book_server.php?id=$book_id&d=0");
    // new HeavyBook()
     }
   }
@@ -186,7 +187,7 @@ for ($i=0; $i < sizeof($x) ; $i++) {
           echo('" alt="Book Cover"></div>');
 
           echo('<div class="details">');
-            echo("<label for='title'>Title : $book_title.'</label><br>");
+            echo("<label for='title'>Title : $book_title.</label><br>");
             echo("<label for='author'>Author : $book_author</label><br>");
             echo("<label for='year'>Year : $book_year</label><br>");
             echo("<label for='catrgory'>Category : $book_catagory</label><br>");

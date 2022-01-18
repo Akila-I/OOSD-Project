@@ -11,7 +11,7 @@ $edit_pasword=$_POST['edit_pasword'];
 $edit_pasword_confirm=$_POST['edit_pasword_confirm'];
 $current_username=$_SESSION['username'];
 
-$database_connection = new database();
+$database_connection = database::getInstance();
 if($current_username!==$edit_username){
     $validation_msg = $database_connection->usernameAvailability($edit_username);
 

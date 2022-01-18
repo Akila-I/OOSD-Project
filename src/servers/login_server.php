@@ -6,7 +6,7 @@ $login_username=$_POST['login_username'];
 $login_pasword=$_POST['login_pasword'];
 
 
-$database_connection = new database();
+$database_connection = database::getInstance();
 $validation_msg = $database_connection->validateUser($login_username,$login_pasword);
 if($validation_msg === true){
     $_SESSION['username'] = $login_username;

@@ -3,19 +3,19 @@ require "database_class.php";
 require "book_class.php";
 
 class User{
-    private $user_id;
-    private $first_name;
-    private $last_name;
-    private $username;
-    private $email;
-    private $password;
-    private $role;
+    protected $user_id;
+    protected $first_name;
+    protected $last_name;
+    protected $username;
+    protected $email;
+    protected $password;
+    protected $role;
 
-    private $database_connection;
+    protected $database_connection;
 
     function __construct($userid)
     {
-        $this->database_connection = new database();
+        $this->database_connection = database::getInstance();
         $this->user_id = $userid;
        // $this->password = $password;
     }

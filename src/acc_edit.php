@@ -20,7 +20,7 @@ if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
 require "classes/database_class.php";
-$database_connection = new database();
+$database_connection = database::getInstance();;
 
 $user_data = $database_connection->getUserDetails($_SESSION['username']);
 

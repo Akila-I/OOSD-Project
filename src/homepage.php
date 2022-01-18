@@ -2,7 +2,6 @@
 //require_once __DIR__."/classes/database_class.php";
 require_once __DIR__."/classes/user_class.php";
 require_once __DIR__."/classes/book_class.php";
-//$database_connection = new database();
 
 session_start();
 if($_SESSION['userID']===null){
@@ -58,10 +57,8 @@ $finished = $user->viewFinishedList();
         width: 200px;
         height: 300px; 
         align-self: auto;
-/*
-        width: 150px;
-        height: 225px;
-*/     
+
+    
     }
 
     
@@ -100,7 +97,7 @@ $finished = $user->viewFinishedList();
                 
                 <table style="text-align: center; width: 200px;">
                 <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
-                <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
+                <tr style="height: 50px;"><td><a href="servers/open_book_server.php?id='.$book->getID().'&d=0">'.$book->getTitle().'</a></td></tr>
                 </table>
                 
                 </td>');
@@ -136,7 +133,7 @@ $finished = $user->viewFinishedList();
                 
                     <table style="text-align: center; width: 200px;">
                     <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
+                    <tr style="height: 50px;"><td><a href="servers/open_book_server.php?id='.$book->getID().'&d=0">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');
@@ -172,7 +169,7 @@ $finished = $user->viewFinishedList();
                 
                     <table style="text-align: center; width: 200px;">
                     <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
+                    <tr style="height: 50px;"><td><a href="servers/open_book_server.php?id='.$book->getID().'&d=0">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');
@@ -208,7 +205,7 @@ $finished = $user->viewFinishedList();
                 
                     <table style="text-align: center; width: 200px;">
                     <tr><td><img src="../images/'.$book->getID().'.jpg" alt="x" align ="left"/></td></tr>
-                    <tr style="height: 50px;"><td><a href="bookview.php?id='.$book->getID().'">'.$book->getTitle().'</a></td></tr>
+                    <tr style="height: 50px;"><td><a href="servers/open_book_server.php?id='.$book->getID().'&d=0">'.$book->getTitle().'</a></td></tr>
                     </table>
                     
                     </td>');

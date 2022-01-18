@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__."/classes/database_class.php";
 session_start();
-session_start();
+//session_start();
 if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }
@@ -18,7 +18,7 @@ if (isset($_POST['Request']))
     $book_year = ($request['book_year'] == NULL) ? 'Not Given' : $request['book_year'];
     $book_catagory = ($request['book_catagory'] == NULL) ? 'Not Given' : $request['book_catagory'];
 
-    $database_connection = new database();
+    $database_connection = database::getInstance();
     
     $database_connection->requestBook($request_by,$book_isbn,$book_title,$book_author,$book_year,$book_catagory);
 

@@ -5,10 +5,29 @@ class database{
     //singleton
     protected $pdo;
 
+    private static $instance;
+
+    private function __construct() {
+
+        $this->connect();
+
+    }
+
+    public static function getInstance()
+    {
+    if ( self::$instance == null)
+    {
+        self::$instance = new database();
+    }
+
+    return self::$instance;
+    }
+/*
     function __construct()
     {
         $this->connect();
     }
+*/
     private function connect(){
         //EDIT THIS LINE ACCORDINGLY
         global $local_pdo;

@@ -19,7 +19,7 @@
             require "classes/database_class.php";
             require "top_menu_bar.php"; 
 
-            $database_connection = new database();
+            $database_connection = database::getInstance();
 
             $user_data = $database_connection->getUserDetails($_SESSION['username']);
             $msg ="";

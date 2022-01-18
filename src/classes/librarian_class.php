@@ -4,6 +4,8 @@ require "user_class.php";
 
 class librarian extends User{
 
+    
+
 
     public function viewDonations(){
         $x = $this->database_connection->getDonations();

@@ -10,7 +10,7 @@ $cvv=$_POST['cvv'];
 $state = 'Active';
 $subs_date = date("Y-m-d");
 
-$database_connection = new database();
+$database_connection = database::getInstance();
 
 $user_id = $database_connection->getUserID($username);
 

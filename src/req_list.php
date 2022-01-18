@@ -6,7 +6,7 @@ if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }
 
-$db_connection = new database();
+$db_connection = database::getInstance();
 
 $req_list = $db_connection->getRequests();
 
