@@ -29,5 +29,6 @@ $database_connection->addCard(
     $user_id, $cardnum, $exp_month, $exp_year
 );
 */
+$_SESSION['sub'] = 'Active';
 header("Location: ../acc_view.php?msg= Subscription success");
     
