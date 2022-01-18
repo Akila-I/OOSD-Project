@@ -3,6 +3,9 @@ session_start();
 if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
+if ($_SESSION['sub'] != 'Active') {
+    header("Location: homepage.php?subs=expired");
+}
 
 if(isset($_SESSION['search'])){
     if($_SESSION['search'] == 'empty'){

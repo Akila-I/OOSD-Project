@@ -521,4 +521,27 @@ class database{
         
         return $arr;
     }
+
+    function checkSubs($user_id){
+        //get subscription of user, if expired return true
+        $sql = "SELECT subs_date,subs_id FROM subscriptions WHERE user_id = :u_id AND subs_status = 'Active' ";
+    
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':u_id' => $user_id
+        ));
+        $changed = false;
+        while( $db_readings = $statement->fetch(PDO::FETCH_ASSOC)){
+            if(date('Y-m-d') > date('Y-m-d',strtotime($db_readings['subs_date'].' + 1 year'))){
+                $sql="UPDATE subscriptions SET subs_status = 'Expired' WHERE subs_id = :s_id";
+
+                $statement = $this->pdo->prepare($sql);
+                $statement->execute(array(
+                    ':s_id' => $db_readings['subs_id']
+                ));
+
+                $changed = true;
+            } }
+        return $changed;
+    }
 }

@@ -1,6 +1,8 @@
 <?php
-require "database_class.php";
-require "book_class.php";
+require_once "database_class.php";
+require_once "book_class.php";
+require_once "subscription_class.php";
+
 
 class User{
     protected $user_id;
@@ -10,6 +12,7 @@ class User{
     protected $email;
     protected $password;
     protected $role;
+    protected Subscription  $subsState;
 
     protected $database_connection;
 
@@ -17,6 +20,13 @@ class User{
     {
         $this->database_connection = database::getInstance();
         $this->user_id = $userid;
+
+        if ($this->database_connection->getSubscriptionState($this->user_id) == 'Active') {
+            $this->subsState = new Subscription(ActiveState::getStatus());
+        }else{
+            $this->subsState = new Subscription(InactiveState::getStatus());
+        }
+        
        // $this->password = $password;
     }
 
@@ -98,6 +108,20 @@ class User{
         return $books_list;
     }
 
+    public function subscribe($card_num,$exp_month,$exp_year){
+
+        $this->database_connection->addSubs($this->user_id, 'Active',date("Y-m-d") );
+        $this->database_connection->addCard($this->user_id,$card_num,$exp_month,$exp_year);
+        $this->subsState->Activate();
+
+    }
+
+    public function unsubscribe(){
+
+        $this->database_connection->unsubscribe($this->user_id);
+        $this->subsState->Deactivate();
+        
+    }
     public function markAsFinished($book_id){}
 
     public function openBook($book_id){}
@@ -105,5 +129,9 @@ class User{
     public function closeBook(){}
 
     public function viewProfile(){}
+
+    public function update(){
+        header("Location: ../homepage.php?subs=expired");
+    }
 
 }

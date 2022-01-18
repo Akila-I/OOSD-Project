@@ -1,9 +1,13 @@
 <?php
-require_once __DIR__."/../classes/database_class.php";
+require_once __DIR__."/../classes/user_class.php";
 session_start();
 
+$user = new User($_SESSION['userID']);
+$user->unsubscribe();
+/*
 $database_connection = database::getInstance();
 $user_id = $_SESSION['userID'];
 $database_connection->unsubscribe($user_id);
 // echo "Unsubscribed";
-header("Location: ../acc_view.php");
+*/
+header("Location: ../acc_view.php?msg= Unubscribed");

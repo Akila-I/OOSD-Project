@@ -1,8 +1,9 @@
 <?php
+require_once "user_class.php";
 
 class Subscription{
 
-    private $state;
+    private SubscriptionState $state;
 
     public function __construct($state)
     {
@@ -11,13 +12,24 @@ class Subscription{
 
     public  function Activate(){
 
-        $this->state = new ActiveState();
+        $this->state = ActiveState::getStatus();
+
+    }
+
+    public  function Deactivate(){
+
+        $this->state = InactiveState::getStatus();;
 
     }
 
     public function getState()
     {
         return $this->state->getSubs();
+    }
+
+    static function notifyUser($userID){
+        $user = new User($userID);
+        $user->update();
     }
 
 

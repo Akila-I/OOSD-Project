@@ -23,6 +23,12 @@ if(isset($_SESSION['search'])){
     }
 }
 
+if(isset($_GET['subs'])){
+    if($_GET['subs'] == 'expired'){
+        echo("<script>alert('Your subscription is expired!');</script>");
+    }
+}
+
 
 $all = $user->viewBookList();
 $fav = $user->viewFavList();
