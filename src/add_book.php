@@ -38,17 +38,22 @@ if (isset($_POST['Donate']))
     elseif($_SESSION['role'] == 'Reader'){
         if ($_FILES['book']['type'] == "application/pdf") {
             $source_file = $_FILES['book']['tmp_name'];
-            $dest_file = "../books/donated/".$_POST['book_title']."pdf";
+            $dest_file = "../books/donated/".$_POST['book_title'].".pdf";
 
             if (file_exists($dest_file)) {
                 echo("<script>alert('Someone has already donated this book.');</script>");
             }
             else {
+                //move pdf to donated folder
                 move_uploaded_file( $source_file, $dest_file )
                 or die ("Error!!");
                 if($_FILES['book']['error'] == 0) {
-                    $database_connection->donateABook($_POST['donor'], $_POST['book_isbn'],$_POST['book_title'], 
+                    //update the db
+                    $donate_id = $database_connection->donateABook($_POST['donor'], $_POST['book_isbn'],$_POST['book_title'], 
                                             $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);
+                    //rename the pdf with doation id
+                    rename("../books/donated/".$_POST['book_title'].".pdf","../books/donated/".$donate_id.".pdf");
+
                     echo("<script>alert('Your donation was sent for approval.');</script>");
                 }
             }

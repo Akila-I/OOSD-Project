@@ -72,7 +72,7 @@ class database{
     }
 
     function getSubscriptionState($userID){
-        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid ORDER BY subs_id DESC";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -91,7 +91,7 @@ class database{
     }
 
     function getSubscriptionDate($userID){
-        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid";
+        $sql = "SELECT * FROM subscriptions WHERE user_id = :userid ORDER BY subs_id DESC";
 
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
@@ -424,6 +424,13 @@ class database{
             ':ctgy' => $catagory
 
         ));
+
+        //return donate id
+        $sql2 = 'SELECT * FROM books_to_add ORDER BY book_id DESC LIMIT 1';
+        $statement2 = $this->pdo->prepare($sql2);
+        $statement2->execute();
+        $donate_id = $statement2->fetch(PDO::FETCH_ASSOC);
+        return $donate_id['book_id'];
     }
 
     function AddNewBook($isbn, $title, $author, $year, $catagory)
@@ -447,6 +454,51 @@ class database{
         $statement2->execute();
         $book_id = $statement2->fetch(PDO::FETCH_ASSOC);
         return $book_id['book_id']; 
+    }
+
+    function approveDonation($donation_id){
+
+        //get the donation details
+        $sql = "SELECT * FROM books_to_add WHERE book_id = :b_id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(array(
+            ':b_id' => $donation_id
+        ));
+
+        $db_details = $statement->fetch(PDO::FETCH_ASSOC);
+
+        //add the donation into books
+        $sql2 = "INSERT INTO books(isbn,title,author,year,category)
+                VALUES (:isbn, :ti, :au, :yr, :ctgy)";
+        
+        $statement2 = $this->pdo->prepare($sql2);
+        $statement2->execute( array(
+
+            ':isbn' => $db_details['isbn'],
+            ':ti' => $db_details['title'],
+            ':au' => $db_details['author'],
+            ':yr' => $db_details['year'],
+            ':ctgy' => $db_details['category']
+
+        ));
+
+        //delete donation details from books_to_add
+        $sql3 = "DELETE FROM books_to_add 
+                WHERE book_id = :b_id";
+    
+        $statement3 = $this->pdo->prepare($sql3);
+        $statement3->execute(array(
+            ':b_id' => $donation_id
+        ));
+
+        //return new book_id (to rename the file)
+        $sql4 = 'SELECT * FROM books ORDER BY book_id DESC LIMIT 1';
+        $statement4 = $this->pdo->prepare($sql4);
+        $statement4->execute();
+        $new_book_id = $statement4->fetch(PDO::FETCH_ASSOC);
+        return $new_book_id['book_id'];
+
     }
 
     function requestBook($request_by, $isbn, $title, $author, $year, $catagory)
@@ -497,13 +549,21 @@ class database{
     }
 
     function unsubscribe($user_id){
-        $sql = "DELETE FROM subscriptions 
-        WHERE user_id = :u_id";
-    
+        // change state instead of delete
+        $sql="UPDATE subscriptions SET subs_status = 'Cancelled' WHERE user_id = :u_id";
+
         $statement = $this->pdo->prepare($sql);
         $statement->execute(array(
             ':u_id' => $user_id
         ));
+
+        // $sql = "DELETE FROM subscriptions 
+        // WHERE user_id = :u_id";
+    
+        // $statement = $this->pdo->prepare($sql);
+        // $statement->execute(array(
+        //     ':u_id' => $user_id
+        // ));
     }
 
     function searchBook($name){

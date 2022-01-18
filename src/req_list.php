@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__."/classes/database_class.php";
 session_start();
-session_start();
 if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }

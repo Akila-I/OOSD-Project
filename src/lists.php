@@ -33,7 +33,7 @@ $type = $_GET['type'];
 //$user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
-//$database_connection = database::getInstance();
+$database_connection = database::getInstance();
 
 if( isset($_POST)){
   
@@ -47,7 +47,7 @@ if( isset($_POST)){
 
     if($type == 5){
     
-    header("Location:  servers/open_book_server.php?id=$book_t&d=1");
+    header("Location:  servers/open_book_server.php?id=$book_id&d=1");
     }
     else{
     header("Location: servers/open_book_server.php?id=$book_id&d=0");
@@ -62,7 +62,12 @@ if( isset($_POST)){
     $user->removeFromFavList( $book_id);
   }
   elseif( isset($_POST['Approve'])){
-    // $database_connection->ApproveDonation($book_id);
+    // $new_book_id = "new";
+    $new_book_id = $database_connection->ApproveDonation($book_id);
+
+    // move the pdf into books folder
+    rename("../books/donated/".$book_id.".pdf","../books/".$new_book_id.".pdf");
+
   }
 
 }
