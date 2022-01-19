@@ -14,6 +14,8 @@ $subs_date = date("Y-m-d");
 
 $user = new User($_SESSION['userID']);
 $user->subscribe($cardnum,$exp_month,$exp_year);
+
+$_SESSION['sub'] == 'Active';
 //$database_connection = database::getInstance();
 
 //$user_id = $database_connection->getUserID($username);
