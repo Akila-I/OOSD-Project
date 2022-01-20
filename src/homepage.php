@@ -7,7 +7,7 @@ session_start();
 if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
-
+//print_r($_SESSION);
 //user 
 $user = new User($_SESSION['userID']);
 
@@ -24,7 +24,7 @@ if(isset($_SESSION['search'])){
 }
 
 if(isset($_GET['subs'])){
-    if($_GET['subs'] == 'expired'){
+    if($_SESSION['sub'] == 'Inactive'){
         echo("<script>alert('Your subscription is expired!');</script>");
     }
 }
