@@ -9,7 +9,7 @@
 
     if(array_key_exists('AddToFav', $_POST)) {
         $database_connection->addToFav($_SESSION['userID'],$book);
-        header("Location: ../bookview.php?id=$book");
+        header("Location: ../bookview.php?id=$book&d=0");
     }
     else if(array_key_exists('ReadLater', $_POST)) {
         $database_connection->addToUserBooks($_SESSION['userID'],$book,"Reading");

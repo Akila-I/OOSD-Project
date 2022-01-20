@@ -1,5 +1,5 @@
 <?php
-require "user_class.php";
+require_once "user_class.php";
 
 
 class librarian extends User{

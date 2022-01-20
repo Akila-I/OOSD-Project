@@ -1,5 +1,5 @@
 <?php
-//require_once __DIR__."/classes/user_class.php";
+require_once __DIR__."/classes/user_class.php";
 require_once __DIR__."/classes/librarian_class.php";
 require_once __DIR__."/classes/book_class.php";
 
@@ -33,7 +33,7 @@ $type = $_GET['type'];
 //$user = $_SESSION['userID'];
 
 use function PHPSTORM_META\type;
-$database_connection = database::getInstance();
+// $database_connection = database::getInstance();
 
 if( isset($_POST)){
   
@@ -62,9 +62,8 @@ if( isset($_POST)){
     $user->removeFromFavList( $book_id);
   }
   elseif( isset($_POST['Approve'])){
-    // $new_book_id = "new";
-    
-    $new_book_id = $user->approveDonation($book_id);//$database_connection->ApproveDonation($book_id);
+    $new_book_id = $user->approveDonation($book_id);
+    //$database_connection->ApproveDonation($book_id);
     
     // move the pdf into books folder
     rename("../books/donated/".$book_id.".pdf","../books/".$new_book_id.".pdf");
@@ -77,7 +76,7 @@ function get_list($list_type){
   
   global $list_name ;
   global $user;
-  global $database_connection;
+  // global $database_connection;
 
   $book_list = null;
   
@@ -138,7 +137,8 @@ function get_list($list_type){
 
     if($book_list == NULL){
       echo("<script>alert('No Donations Available.');</script>");
-      header("Location: $previous");           
+      // header("Location: $previous");           
+
     }
 
   }
