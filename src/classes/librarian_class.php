@@ -23,6 +23,18 @@ class librarian extends User{
         return $book;
     }
 
+    public function addBook($isbn, $title, $author, $year, $catagory){
+
+        $x = $this->database_connection->AddNewBook($isbn, $title, $author, $year, $catagory);
+        return $x;
+    }
+
+    public function approveDonation($book_id){
+
+        $x = $this->database_connection->approveDonation($book_id);
+        return $x;
+
+    }
 
 
 
