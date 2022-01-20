@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 
 <html>
@@ -15,7 +19,7 @@
 
 
 <?php
-session_start();
+
 if($_SESSION['userID']===null){
     header("Location: index.php?msg=Please Login First");
 }
