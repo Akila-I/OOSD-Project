@@ -25,6 +25,7 @@ elseif($register_pasword !== $register_pasword_confirm){
     header("Location: ../register.php?msg=$validation_msg");
 }
 else{
+    $register_pasword = password_hash($register_pasword,PASSWORD_DEFAULT);
     $database_connection->addUser(
         $register_fname,$register_lname,$register_username,
         $register_email,$register_pasword,$register_role
