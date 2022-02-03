@@ -48,7 +48,7 @@ class database{
         if ($db_password === false){
             $msg = "Incorrect Username";
         }
-        else if ($db_password['password'] !== $password){
+        else if(!password_verify($password,$db_password['password'])){
             $msg = "Incorrect Password";
         }
         else{
