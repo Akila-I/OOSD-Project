@@ -12,6 +12,8 @@ $cvv=$_POST['cvv'];
 $state = 'Active';
 $subs_date = date("Y-m-d");
 
+
+
 $user = new User($_SESSION['userID']);
 $user->subscribe($cardnum,$exp_month,$exp_year);
 

@@ -2,15 +2,17 @@
     .searchbox{
         float:right;
         margin: 10px;
+        
     }
     .searchbox input, .searchbox button{
         border-radius: 15px;
+        
     }
 
     .searchbox input{
         padding: 10px;
         font-size: 17px;
-        border: 2px  #190061;
+        border: 2px solid  #190061;
         float: left;
         width: 80%;
         background: #f1f1f1;
@@ -19,7 +21,7 @@
     .searchbox button{
         padding: 10px;
         font-size: 17px;
-        border: 2px  #190061;
+        border: 2px solid #190061;
         float: left;
         width: 15%;
         background: #f1f1f1;
