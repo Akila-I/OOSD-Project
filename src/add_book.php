@@ -24,7 +24,7 @@ if (isset($_POST['Donate']))
                     $id = $database_connection->AddNewBook($_POST['book_isbn'],$_POST['book_title'], 
                                             $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);*/
 
-                    $admin->addBook($_POST['book_isbn'],$_POST['book_title'], 
+                    $id = $admin->addBook($_POST['book_isbn'],$_POST['book_title'], 
                                         $_POST['book_author'], $_POST['book_year'], $_POST['book_catagory']);
                     echo("<script>alert('Book is added to the library.');</script>");
                     $source = "../books/".$_POST['book_title'];

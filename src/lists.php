@@ -189,7 +189,10 @@ for ($i=0; $i < sizeof($x) ; $i++) {
 
           echo("<li><div class='entry'>");
           echo('<div class="image"><img src="');
-          echo($type == 5)? "No Cover" : "../images/$book_id.jpg";
+          $img_name = "../images/$book_id.jpg";
+          if(!file_exists($img_name)) $img_name = "../images/alt1.jpg";
+          if($type == 5) $img_name = "../images/alt2.jpg";
+          echo($img_name);
           echo('" alt="Book Cover"></div>');
 
           echo('<div class="details">');
