@@ -17,7 +17,7 @@
 session_start();
 $msg="";
 if(!empty($_REQUEST['msg'])){
-    $msg='*'.$_REQUEST['msg'];
+    $msg=$_REQUEST['msg'];
  }
 
  ?>
@@ -31,7 +31,7 @@ if(!empty($_REQUEST['msg'])){
                     <h6>Home, the new library</h6>
                     <br><h3>Login</h3>
                     <form action="servers/login_server.php" method="post">
-                    <Label style="color:red"><?php echo $msg?></label><br>
+                    <Label style="color:red"><?= $msg ?></label><br>
                         
                         <div class="form-group">
                             <input type="text" class="form-control" name="login_username" placeholder="Your Username *" value="" required/>

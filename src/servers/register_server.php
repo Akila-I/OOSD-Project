@@ -30,5 +30,5 @@ else{
         $register_fname,$register_lname,$register_username,
         $register_email,$register_pasword,$register_role
     );
-    header("Location: ../index.php?msg='registration success'");
+    header("Location: ../index.php?msg= registration success");
 }

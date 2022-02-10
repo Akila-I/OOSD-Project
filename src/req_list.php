@@ -67,7 +67,7 @@ require "search_button.php";
   
               echo ("<form method = 'POST'>");
               echo ('<input type="hidden" name="Req" value="'.$req_id.'">');
-              echo ('<input type="submit" name="Ignore" value="Ignore"><br><br>');
+              echo ('<input type="submit" name="Ignore" value="Mark As Read"><br><br>');
               
             //   if ($type == 0) {
             //     echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');

@@ -12,6 +12,23 @@ $cvv=$_POST['cvv'];
 $state = 'Active';
 $subs_date = date("Y-m-d");
 
+if (!is_numeric($cardnum)  ){
+
+header("Location: ../Subscription.php?msg= Invalid Card Number");
+return;
+
+}elseif(!is_numeric($exp_month) || !is_numeric($exp_year) || $exp_month > 12 ){
+   
+header("Location: ../Subscription.php?msg= Invalid Month");
+return; 
+
+}elseif(!is_numeric($cvv)){
+   
+    header("Location: ../Subscription.php?msg= Invalid cvv");
+    return;
+
+}
+
 
 
 $user = new User($_SESSION['userID']);

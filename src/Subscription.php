@@ -25,9 +25,11 @@
             $msg ="";
             if(!empty($_REQUEST['msg'])){
                 $msg=$_REQUEST['msg'];
-                echo $msg;
+                echo '<p style="color: red;">'. $msg .'</p>';
             }
         ?>
+
+       
         <div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
@@ -45,18 +47,18 @@
 
                     <div class="form-group">    
                         <label for="cardnum">Card Number</label>
-                        <input type="text" class="form-control" name="cardnum" maxlength="16" placeholder="Card Number (required)" required />
+                        <input type="text" class="form-control" name="cardnum"  placeholder="Card Number " required />
                     </div>
 
                     <div class="form-group">    
                         <label for="exp">Expire Date</label>
-                        <input type="text" class="form-control" name="exp_month" placeholder="mm"/>
-                        <input type="text" class="form-control" name="exp_year" placeholder="yyyy"/>
+                        <input type="number" class="form-control" name="exp_month" min = 1 max= 12 placeholder="mm" required/>
+                        <input type="number" class="form-control" name="exp_year" min = 2021  placeholder="yyyy" required/>
                     </div>
 
                     <div class="form-group">
                         <label for="cvv">CVV</label>
-                        <input type="text" class="form-control" name="cvv" maxlength="3" placeholder="CVV (required)" required /><br>    
+                        <input type="text" class="form-control" name="cvv" maxlength="3" placeholder="CVV " required /><br>    
                     </div>
 
                     <div class="form-group">    

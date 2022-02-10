@@ -31,7 +31,7 @@ $sub_date = $database_connection->getSubscriptionDate($_SESSION['userID']);
         $msg="";
         if(!empty($_REQUEST['msg'])){
             $msg = $_REQUEST['msg'];
-            echo $msg;
+            echo '<p style="color: red;">' .$msg. '</p>';
         }   
     ?>
 
@@ -68,7 +68,7 @@ $sub_date = $database_connection->getSubscriptionDate($_SESSION['userID']);
 
                         <div class="form-group">
                             <label for="subs_date">Date of Subscription</label>
-                            <input type="text" class="form-control" name="edit_email" value=<?php echo $sub_date;?> readonly/>
+                            <input type="<?php ?>" class="form-control" name="edit_email" value=<?php echo $sub_date;?> readonly/>
                         </div>
 
                         <div class="form-group">
