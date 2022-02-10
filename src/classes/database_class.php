@@ -365,7 +365,7 @@ class database{
 
     function addCard($user_id, $card_num, $exp_month, $exp_year){
     
-        $sql = "INSERT INTO CardDetails (user_id, card_number, exp_month, exp_year)
+        $sql = "INSERT INTO carddetails (user_id, card_number, exp_month, exp_year)
         VALUES (:u_id, :c_num, :e_m, :e_y)";
     
         $statement = $this->pdo->prepare($sql);
@@ -533,6 +533,15 @@ class database{
         }
     
         return $arr;
+    }
+
+    function removeReq($req_id){
+        $sql = "DELETE FROM requests WHERE req_id = :r_id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute( array(':r_id' =>$req_id));
+
+            
     }
 
     function checksubs_status($user_id){

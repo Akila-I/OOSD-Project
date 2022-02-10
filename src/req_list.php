@@ -5,9 +5,19 @@ if($_SESSION['userID']===null){
   header("Location: index.php?msg=Please Login First");
 }
 
+
 $db_connection = database::getInstance();
 
+if(isset($_POST["Ignore"])){
+  $db_connection->removeReq($_POST["Req"]);
+}
+
 $req_list = $db_connection->getRequests();
+
+if($req_list == NULL){
+  echo("<script>alert('No Requests Available.');</script>");
+
+}
 
 ?>
 
@@ -57,7 +67,7 @@ require "search_button.php";
   
               echo ("<form method = 'POST'>");
               echo ('<input type="hidden" name="Req" value="'.$req_id.'">');
-              echo ('<input type="submit" name="View" value="Mark as Viewed"><br><br>');
+              echo ('<input type="submit" name="Ignore" value="Ignore"><br><br>');
               
             //   if ($type == 0) {
             //     echo ('<input type="submit" name="AddtoFav" value="Add to Favourites">');
